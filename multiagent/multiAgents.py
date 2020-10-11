@@ -188,9 +188,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
             numMinAgents = state.getNumAgents() - 1
 
             isTerminalState = terminalTest(state)
-            if isTerminalState:
-                print "depth:", depth, "maxDepth:", maxDepth, "agentIndex:", agentIndex, "isTerminalState:", isTerminalState
-                return utility(state)
+            if isTerminalState: return utility(state)
             v = 1000000000
             for action in state.getLegalActions(agentIndex):
                 successorState = state.generateSuccessor(agentIndex, action)
