@@ -158,7 +158,65 @@ class MinimaxAgent(MultiAgentSearchAgent):
             Returns the total number of agents in the game
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # Initializing some required things
+        from multiagentTestClasses import MultiagentTreeState as MTS
+
+        # Defining some required things
+        utility = self.evaluationFunction
+        maxDepth = self.depth
+
+        def terminalTest(state):
+            # type: (MTS) -> bool
+            return state.isLose() or state.isWin()
+
+        def maxValue(state, depth):
+            # type: (MTS, int) -> int
+            # Defining some required things
+            agentIndex = 0  # MAX player is always agent 0
+            FIRST_MIN_AGENT_INDEX = 1
+
+            if terminalTest(state) or (depth > maxDepth): return utility(state)
+            v = -1000000000
+            for action in state.getLegalActions(agentIndex):
+                successorState = state.generateSuccessor(agentIndex, action)
+                v = max(v, minValue(successorState, FIRST_MIN_AGENT_INDEX, depth))
+            return v
+
+        def minValue(state, agentIndex, depth):
+            # type: (MTS, int, int) -> int
+            # Defining some required things
+            numMinAgents = state.getNumAgents() - 1
+
+            isTerminalState = terminalTest(state)
+            if isTerminalState:
+                print "depth:", depth, "maxDepth:", maxDepth, "agentIndex:", agentIndex, "isTerminalState:", isTerminalState
+                return utility(state)
+            v = 1000000000
+            for action in state.getLegalActions(agentIndex):
+                successorState = state.generateSuccessor(agentIndex, action)
+                if agentIndex < numMinAgents:
+                    v = min(v, minValue(successorState, agentIndex+1, depth))
+                else:
+                    v = min(v, maxValue(successorState, depth+1))
+            return v
+
+        MAX_AGENT_INDEX = 0
+        FIRST_MIN_AGENT_INDEX = 1
+        INITIAL_DEPTH = 1
+        actions = gameState.getLegalActions(MAX_AGENT_INDEX)
+        bestValue = -1000000000
+        bestAction = None
+        for action in actions:
+            successor = gameState.generateSuccessor(MAX_AGENT_INDEX, action)
+            successorMinValue = minValue(successor, FIRST_MIN_AGENT_INDEX, INITIAL_DEPTH)
+            if successorMinValue > bestValue:
+                bestValue = successorMinValue
+                bestAction = action
+        return bestAction
+
+
+
+
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
