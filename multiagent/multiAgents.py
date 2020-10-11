@@ -74,7 +74,44 @@ class ReflexAgent(Agent):
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         "*** YOUR CODE HERE ***"
-        return successorGameState.getScore()
+        # Just printing some stuff
+        # print "successorGameState:\n", successorGameState
+        print "newPos:\n", newPos
+        # print "newFood:\n", newFood
+        print "foodList:", newFood.asList()
+        # Wow, we actually know where the ghost is gonna go next
+        # Oh, the ghosts are not random here of course! I think we'll get to random ghosts when we do expectimax!
+        print "newGhostStates:"
+        for ngs in newGhostStates:
+            print "ngs:", ngs
+        print "newScaredTimes:\n", newScaredTimes
+
+        # Defining some required things
+        from util import manhattanDistance as md
+
+        # Actual calculations start here
+        newFoodList = newFood.asList()
+        numberOfRemainingFood = len(newFoodList)
+
+        distanceFromFoods = [md(newPos, newFoodPos) for newFoodPos in newFoodList]
+        distanceFromClosestFood = 0 if (len(distanceFromFoods) == 0) else min(distanceFromFoods)
+
+        currentPos = currentGameState.getPacmanPosition()
+        currentGhostPositions = [cgs.getPosition() for cgs in currentGameState.getGhostStates()]
+        newGhostPositions = [newGhostState.getPosition() for newGhostState in newGhostStates]
+        newGhostsAtDistanceOne = [ghostPos for ghostPos in newGhostPositions if md(newPos, ghostPos) == 1]
+        willTheyInterchange = [(newGhostPos == currentPos) and (newPos == newGhostPos) for newGhostPos in newGhostPositions]
+        willBothGoToTheSamePosition = (newPos in [newGhostState.getPosition() for newGhostState in newGhostStates])
+
+        willPacmanDie = (newPos in [newGhostState.getPosition() for newGhostState in newGhostStates])
+        print "willPacmanDie:", willPacmanDie
+
+        successorGameScore = successorGameState.getScore()
+
+        finalScore = successorGameScore - (5000 if willPacmanDie else 0) - numberOfRemainingFood - distanceFromClosestFood
+        print "Final Score:", finalScore
+        return finalScore
+
 
 def scoreEvaluationFunction(currentGameState):
     """
