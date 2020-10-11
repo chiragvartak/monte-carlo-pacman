@@ -74,17 +74,17 @@ class ReflexAgent(Agent):
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         "*** YOUR CODE HERE ***"
-        # Just printing some stuff
-        # print "successorGameState:\n", successorGameState
-        print "newPos:\n", newPos
-        # print "newFood:\n", newFood
-        print "foodList:", newFood.asList()
-        # Wow, we actually know where the ghost is gonna go next
-        # Oh, the ghosts are not random here of course! I think we'll get to random ghosts when we do expectimax!
-        print "newGhostStates:"
-        for ngs in newGhostStates:
-            print "ngs:", ngs
-        print "newScaredTimes:\n", newScaredTimes
+        # # Just printing some stuff
+        # # print "successorGameState:\n", successorGameState
+        # print "newPos:\n", newPos
+        # # print "newFood:\n", newFood
+        # print "foodList:", newFood.asList()
+        # # Wow, we actually know where the ghost is gonna go next
+        # # Oh, the ghosts are not random here of course! I think we'll get to random ghosts when we do expectimax!
+        # print "newGhostStates:"
+        # for ngs in newGhostStates:
+        #     print "ngs:", ngs
+        # print "newScaredTimes:\n", newScaredTimes
 
         # Defining some required things
         from util import manhattanDistance as md
@@ -96,20 +96,12 @@ class ReflexAgent(Agent):
         distanceFromFoods = [md(newPos, newFoodPos) for newFoodPos in newFoodList]
         distanceFromClosestFood = 0 if (len(distanceFromFoods) == 0) else min(distanceFromFoods)
 
-        currentPos = currentGameState.getPacmanPosition()
-        currentGhostPositions = [cgs.getPosition() for cgs in currentGameState.getGhostStates()]
-        newGhostPositions = [newGhostState.getPosition() for newGhostState in newGhostStates]
-        newGhostsAtDistanceOne = [ghostPos for ghostPos in newGhostPositions if md(newPos, ghostPos) == 1]
-        willTheyInterchange = [(newGhostPos == currentPos) and (newPos == newGhostPos) for newGhostPos in newGhostPositions]
-        willBothGoToTheSamePosition = (newPos in [newGhostState.getPosition() for newGhostState in newGhostStates])
-
-        willPacmanDie = (newPos in [newGhostState.getPosition() for newGhostState in newGhostStates])
-        print "willPacmanDie:", willPacmanDie
+        distancesFromGhosts = [md(newPos, ngs.getPosition()) for ngs in newGhostStates]
+        distanceFromClosestGhost = 0 if (len(distancesFromGhosts) == 0) else min(distancesFromGhosts)
 
         successorGameScore = successorGameState.getScore()
 
-        finalScore = successorGameScore - (5000 if willPacmanDie else 0) - numberOfRemainingFood - distanceFromClosestFood
-        print "Final Score:", finalScore
+        finalScore = successorGameScore - (1000 if (distanceFromClosestGhost<=1) else 0) - 50*numberOfRemainingFood - distanceFromClosestFood
         return finalScore
 
 
