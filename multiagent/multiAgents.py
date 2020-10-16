@@ -74,23 +74,13 @@ class ReflexAgent(Agent):
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         "*** YOUR CODE HERE ***"
-        # # Just printing some stuff
-        # # print "successorGameState:\n", successorGameState
-        # print "newPos:\n", newPos
-        # # print "newFood:\n", newFood
-        # print "foodList:", newFood.asList()
-        # # Wow, we actually know where the ghost is gonna go next
-        # # Oh, the ghosts are not random here of course! I think we'll get to random ghosts when we do expectimax!
-        # print "newGhostStates:"
-        # for ngs in newGhostStates:
-        #     print "ngs:", ngs
-        # print "newScaredTimes:\n", newScaredTimes
-
-        # Defining some required things
+        # Imports
         from util import manhattanDistance as md
 
-        # Actual calculations start here
+        # Better represented information for convenience
         newFoodList = newFood.asList()
+        successorGameScore = successorGameState.getScore()
+
         numberOfRemainingFood = len(newFoodList)
 
         distanceFromFoods = [md(newPos, newFoodPos) for newFoodPos in newFoodList]
@@ -99,11 +89,11 @@ class ReflexAgent(Agent):
         distancesFromGhosts = [md(newPos, ngs.getPosition()) for ngs in newGhostStates]
         distanceFromClosestGhost = 0 if (len(distancesFromGhosts) == 0) else min(distancesFromGhosts)
 
-        successorGameScore = successorGameState.getScore()
-
-        finalScore = successorGameScore - (1000 if (distanceFromClosestGhost<=1) else 0) - 50*numberOfRemainingFood - distanceFromClosestFood
+        finalScore = successorGameScore \
+                     - (1000 if (distanceFromClosestGhost<=1) else 0) \
+                     - 50*numberOfRemainingFood \
+                     - distanceFromClosestFood
         return finalScore
-
 
 def scoreEvaluationFunction(currentGameState):
     """
@@ -158,20 +148,15 @@ class MinimaxAgent(MultiAgentSearchAgent):
             Returns the total number of agents in the game
         """
         "*** YOUR CODE HERE ***"
-        # Initializing some required things
-        from multiagentTestClasses import MultiagentTreeState as MTS
-
-        # Defining some required things
+        # Initializations for convenience
         utility = self.evaluationFunction
         maxDepth = self.depth
 
+        # Helper functions for improved readability
         def terminalTest(state):
-            # type: (MTS) -> bool
             return state.isLose() or state.isWin()
 
         def maxValue(state, depth):
-            # type: (MTS, int) -> int
-            # Defining some required things
             agentIndex = 0  # MAX player is always agent 0
             FIRST_MIN_AGENT_INDEX = 1
 
@@ -183,8 +168,6 @@ class MinimaxAgent(MultiAgentSearchAgent):
             return v
 
         def minValue(state, agentIndex, depth):
-            # type: (MTS, int, int) -> int
-            # Defining some required things
             numMinAgents = state.getNumAgents() - 1
 
             isTerminalState = terminalTest(state)
@@ -198,9 +181,12 @@ class MinimaxAgent(MultiAgentSearchAgent):
                     v = min(v, maxValue(successorState, depth+1))
             return v
 
+        # Constants
         MAX_AGENT_INDEX = 0
         FIRST_MIN_AGENT_INDEX = 1
         INITIAL_DEPTH = 1
+
+        # The actual algorithm starts here
         actions = gameState.getLegalActions(MAX_AGENT_INDEX)
         bestValue = -1000000000
         bestAction = None
@@ -212,10 +198,6 @@ class MinimaxAgent(MultiAgentSearchAgent):
                 bestAction = action
         return bestAction
 
-
-
-
-
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
       Your minimax agent with alpha-beta pruning (question 3)
@@ -226,25 +208,17 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
           Returns the minimax action using self.depth and self.evaluationFunction
         """
         "*** YOUR CODE HERE ***"
-        # Initializing some required things
-        from typing import Any
-        from multiagentTestClasses import MultiagentTreeState as MTS
-
-        # Defining some required things
+        # Initializations for convenience
         utility = self.evaluationFunction
         maxDepth = self.depth
 
+        # Helper functions for improved readability
         def terminalTest(state):
-            # type: (MTS) -> bool
             return state.isLose() or state.isWin()
 
         def maxValue(state, depth, alpha, beta):
-            # type: (MTS, int, int, int) -> (int, Any)
-            # Defining some required things
             agentIndex = 0  # MAX player is always agent 0
             FIRST_MIN_AGENT_INDEX = 1
-
-            # print "state:", state.state, "alpha:", alpha, "beta:", beta
 
             if terminalTest(state) or (depth > maxDepth): return (utility(state), None)
             v = -1000000000
@@ -260,11 +234,7 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
             return (v, bestAction)
 
         def minValue(state, agentIndex, depth, alpha, beta):
-            # type: (MTS, int, int, int, int) -> (int, Any)
-            # Defining some required things
             numMinAgents = state.getNumAgents() - 1
-
-            # print "state:", state.state, "alpha:", alpha, "beta:", beta
 
             isTerminalState = terminalTest(state)
             if isTerminalState: return (utility(state), None)
@@ -272,7 +242,6 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
             bestAction = None
             for action in state.getLegalActions(agentIndex):
                 successorState = state.generateSuccessor(agentIndex, action)
-                # print "successorState:", successorState.state, "action:", action
                 if agentIndex < numMinAgents:
                     minValueOfSuccessor, _ = minValue(successorState, agentIndex + 1, depth, alpha, beta)
                     if minValueOfSuccessor < v:
@@ -303,20 +272,15 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
           legal moves.
         """
         "*** YOUR CODE HERE ***"
-        # Initializing some required things
-        from multiagentTestClasses import MultiagentTreeState as MTS
-
-        # Defining some required things
+        # Initializations for convenience
         utility = self.evaluationFunction
         maxDepth = self.depth
 
+        # Some nested helper functions for improved readability of code
         def terminalTest(state):
-            # type: (MTS) -> bool
             return state.isLose() or state.isWin()
 
         def maxValue(state, depth):
-            # type: (MTS, int) -> int
-            # Defining some required things
             agentIndex = 0  # MAX player is always agent 0
             FIRST_MIN_AGENT_INDEX = 1
 
@@ -328,8 +292,6 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
             return v
 
         def minValue(state, agentIndex, depth):
-            # type: (MTS, int, int) -> int
-            # Defining some required things
             numMinAgents = state.getNumAgents() - 1
 
             isTerminalState = terminalTest(state)
@@ -345,9 +307,12 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
                     v += probabilityOfEachAction * maxValue(successorState, depth + 1)
             return v
 
+        # Constants
         MAX_AGENT_INDEX = 0
         FIRST_MIN_AGENT_INDEX = 1
         INITIAL_DEPTH = 1
+
+        # The actual algorithm starts here
         actions = gameState.getLegalActions(MAX_AGENT_INDEX)
         bestValue = -1000000000
         bestAction = None
@@ -359,8 +324,6 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
             if successorMinValue > bestValue:
                 bestValue = successorMinValue
                 bestAction = action
-        # print dictActionValue
-        # print "Choosing action", bestAction, "among actions", actions
         return bestAction
 
 def betterEvaluationFunction(currentGameState):
@@ -368,53 +331,29 @@ def betterEvaluationFunction(currentGameState):
       Your extreme ghost-hunting, pellet-nabbing, food-gobbling, unstoppable
       evaluation function (question 5).
 
-      DESCRIPTION: <write something here so we know what you did>
+      DESCRIPTION: This evaluation function -
+      1) Rewards not dying (of course!) - this logic is captured by the game score itself
+      2) Gives a high reward for eating up food pellets
+      3) Gives a small reward for being closer to the food
     """
     "*** YOUR CODE HERE ***"
-    # Useful information you can extract from a GameState (pacman.py)
-    successorGameState = currentGameState
-    newPos = successorGameState.getPacmanPosition()
-    newFood = successorGameState.getFood()
-    newGhostStates = successorGameState.getGhostStates()
-    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
-
-    "*** YOUR CODE HERE ***"
-    # # Just printing some stuff
-    # # print "successorGameState:\n", successorGameState
-    # print "newPos:\n", newPos
-    # # print "newFood:\n", newFood
-    # print "foodList:", newFood.asList()
-    # # Wow, we actually know where the ghost is gonna go next
-    # # Oh, the ghosts are not random here of course! I think we'll get to random ghosts when we do expectimax!
-    # print "newGhostStates:"
-    # for ngs in newGhostStates:
-    #     print "ngs:", ngs
-    # print "newScaredTimes:\n", newScaredTimes
-
-    # Defining some required things
+    # Imports
     from random import randint
     from util import manhattanDistance as md
 
-    # Actual calculations start here
-    newFoodList = newFood.asList()
-    numberOfRemainingFood = len(newFoodList)
+    # Useful information extracted from GameState (pacman.py)
+    pacmanPos = currentGameState.getPacmanPosition()
+    foodMatrix = currentGameState.getFood()
+    foodList = foodMatrix.asList()
+    successorGameScore = currentGameState.getScore()
 
-    distanceFromFoods = [md(newPos, newFoodPos) for newFoodPos in newFoodList]
-    # print newFoodList
+    # Actual calculations start here
+    numberOfRemainingFood = len(foodList)
+
+    distanceFromFoods = [md(pacmanPos, newFoodPos) for newFoodPos in foodList]
     distanceFromClosestFood = 0 if (len(distanceFromFoods) == 0) else min(distanceFromFoods)
 
-    distancesFromGhosts = [md(newPos, ngs.getPosition()) for ngs in newGhostStates]
-    distanceFromClosestGhost = 0 if (len(distancesFromGhosts) == 0) else min(distancesFromGhosts)
-
-    successorGameScore = successorGameState.getScore()
-
-    # successorGameScore \
-    finalScore = successorGameScore - 5 * distanceFromClosestFood - 50 * numberOfRemainingFood + randint(0,1)
-
-
-    # print finalScore, \
-    #     "numberOfRemainingFood:", numberOfRemainingFood,\
-    #     "distanceFromClosestFood:", distanceFromClosestFood
+    finalScore = successorGameScore - (50 * numberOfRemainingFood) - (5 * distanceFromClosestFood)  + randint(0,1)
     return finalScore
 
 # Abbreviation
