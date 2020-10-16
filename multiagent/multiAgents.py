@@ -351,12 +351,16 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
         actions = gameState.getLegalActions(MAX_AGENT_INDEX)
         bestValue = -1000000000
         bestAction = None
+        dictActionValue = {}
         for action in actions:
             successor = gameState.generateSuccessor(MAX_AGENT_INDEX, action)
             successorMinValue = minValue(successor, FIRST_MIN_AGENT_INDEX, INITIAL_DEPTH)
+            dictActionValue[action] = successorMinValue
             if successorMinValue > bestValue:
                 bestValue = successorMinValue
                 bestAction = action
+        # print dictActionValue
+        # print "Choosing action", bestAction, "among actions", actions
         return bestAction
 
 def betterEvaluationFunction(currentGameState):
@@ -388,6 +392,7 @@ def betterEvaluationFunction(currentGameState):
     # print "newScaredTimes:\n", newScaredTimes
 
     # Defining some required things
+    from random import randint
     from util import manhattanDistance as md
 
     # Actual calculations start here
@@ -395,6 +400,7 @@ def betterEvaluationFunction(currentGameState):
     numberOfRemainingFood = len(newFoodList)
 
     distanceFromFoods = [md(newPos, newFoodPos) for newFoodPos in newFoodList]
+    # print newFoodList
     distanceFromClosestFood = 0 if (len(distanceFromFoods) == 0) else min(distanceFromFoods)
 
     distancesFromGhosts = [md(newPos, ngs.getPosition()) for ngs in newGhostStates]
@@ -402,8 +408,13 @@ def betterEvaluationFunction(currentGameState):
 
     successorGameScore = successorGameState.getScore()
 
-    finalScore = successorGameScore - (
-        1000 if (distanceFromClosestGhost <= 1) else 0) - 50 * numberOfRemainingFood - distanceFromClosestFood
+    # successorGameScore \
+    finalScore = successorGameScore - 5 * distanceFromClosestFood - 50 * numberOfRemainingFood + randint(0,1)
+
+
+    # print finalScore, \
+    #     "numberOfRemainingFood:", numberOfRemainingFood,\
+    #     "distanceFromClosestFood:", distanceFromClosestFood
     return finalScore
 
 # Abbreviation
