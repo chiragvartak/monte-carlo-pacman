@@ -367,7 +367,44 @@ def betterEvaluationFunction(currentGameState):
       DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # Useful information you can extract from a GameState (pacman.py)
+    successorGameState = currentGameState
+    newPos = successorGameState.getPacmanPosition()
+    newFood = successorGameState.getFood()
+    newGhostStates = successorGameState.getGhostStates()
+    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
+
+    "*** YOUR CODE HERE ***"
+    # # Just printing some stuff
+    # # print "successorGameState:\n", successorGameState
+    # print "newPos:\n", newPos
+    # # print "newFood:\n", newFood
+    # print "foodList:", newFood.asList()
+    # # Wow, we actually know where the ghost is gonna go next
+    # # Oh, the ghosts are not random here of course! I think we'll get to random ghosts when we do expectimax!
+    # print "newGhostStates:"
+    # for ngs in newGhostStates:
+    #     print "ngs:", ngs
+    # print "newScaredTimes:\n", newScaredTimes
+
+    # Defining some required things
+    from util import manhattanDistance as md
+
+    # Actual calculations start here
+    newFoodList = newFood.asList()
+    numberOfRemainingFood = len(newFoodList)
+
+    distanceFromFoods = [md(newPos, newFoodPos) for newFoodPos in newFoodList]
+    distanceFromClosestFood = 0 if (len(distanceFromFoods) == 0) else min(distanceFromFoods)
+
+    distancesFromGhosts = [md(newPos, ngs.getPosition()) for ngs in newGhostStates]
+    distanceFromClosestGhost = 0 if (len(distancesFromGhosts) == 0) else min(distancesFromGhosts)
+
+    successorGameScore = successorGameState.getScore()
+
+    finalScore = successorGameScore - (
+        1000 if (distanceFromClosestGhost <= 1) else 0) - 50 * numberOfRemainingFood - distanceFromClosestFood
+    return finalScore
 
 # Abbreviation
 better = betterEvaluationFunction
