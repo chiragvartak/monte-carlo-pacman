@@ -226,7 +226,69 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
           Returns the minimax action using self.depth and self.evaluationFunction
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # Initializing some required things
+        from typing import Any
+        from multiagentTestClasses import MultiagentTreeState as MTS
+
+        # Defining some required things
+        utility = self.evaluationFunction
+        maxDepth = self.depth
+
+        def terminalTest(state):
+            # type: (MTS) -> bool
+            return state.isLose() or state.isWin()
+
+        def maxValue(state, depth, alpha, beta):
+            # type: (MTS, int, int, int) -> (int, Any)
+            # Defining some required things
+            agentIndex = 0  # MAX player is always agent 0
+            FIRST_MIN_AGENT_INDEX = 1
+
+            # print "state:", state.state, "alpha:", alpha, "beta:", beta
+
+            if terminalTest(state) or (depth > maxDepth): return (utility(state), None)
+            v = -1000000000
+            bestAction = None
+            for action in state.getLegalActions(agentIndex):
+                successorState = state.generateSuccessor(agentIndex, action)
+                minValueOfSuccessor, _ = minValue(successorState, FIRST_MIN_AGENT_INDEX, depth, alpha, beta)
+                if minValueOfSuccessor > v:
+                    v = minValueOfSuccessor
+                    bestAction = action
+                if v > beta: return (v, action)
+                alpha = max(alpha, v)
+            return (v, bestAction)
+
+        def minValue(state, agentIndex, depth, alpha, beta):
+            # type: (MTS, int, int, int, int) -> (int, Any)
+            # Defining some required things
+            numMinAgents = state.getNumAgents() - 1
+
+            # print "state:", state.state, "alpha:", alpha, "beta:", beta
+
+            isTerminalState = terminalTest(state)
+            if isTerminalState: return (utility(state), None)
+            v = 1000000000
+            bestAction = None
+            for action in state.getLegalActions(agentIndex):
+                successorState = state.generateSuccessor(agentIndex, action)
+                # print "successorState:", successorState.state, "action:", action
+                if agentIndex < numMinAgents:
+                    minValueOfSuccessor, _ = minValue(successorState, agentIndex + 1, depth, alpha, beta)
+                    if minValueOfSuccessor < v:
+                        v = minValueOfSuccessor
+                        bestAction = action
+                else:
+                    maxValueOfSuccessor, _ = maxValue(successorState, depth + 1, alpha, beta)
+                    if maxValueOfSuccessor < v:
+                        v = maxValueOfSuccessor
+                        bestAction = action
+                if v < alpha: return (v, action)
+                beta = min(beta, v)
+            return (v, bestAction)
+
+        _, bestAction = maxValue(gameState, depth=1, alpha=-1000000000, beta=1000000000)
+        return bestAction
 
 class ExpectimaxAgent(MultiAgentSearchAgent):
     """
