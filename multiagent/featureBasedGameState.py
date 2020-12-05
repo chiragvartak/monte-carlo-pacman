@@ -11,20 +11,31 @@ class FeatureBasedGameState(object):
         self.rawGameState = gameState
 
         # Please list all the features here. It becomes convenient; don't miss out any, or directly initialise elsewhere
-        self.isClosestGhost1UnitNorth = None
-        self.isClosestGhost1UnitWest = None
-        self.isClosestGhost1UnitSouth = None
-        self.isClosestGhost1UnitEast = None
+        self.ghostWithin2UnitNorth = None
+        self.ghostWithin2UnitWest = None
+        self.ghostWithin2UnitSouth = None
+        self.ghostWithin2UnitEast = None
+        self.ghostNorthWest = None
+        self.ghostSouthWest = None
+        self.ghostSouthEast = None
+        self.ghostNorthEast = None
 
         # Caching some stuff for faster calculations - don't change this please!
         self.closestGhosts = None
 
+        # Some things you might need
+        x, y = self.rawGameState.getPacmanPosition()
+
         # This is where you will calculate the features you have listed above
         pacmanPosition = self.rawGameState.getPacmanPosition()
-        self.isClosestGhost1UnitNorth = self.doesGhostExist(pacmanPosition, 'North', 1)
-        self.isClosestGhost1UnitWest = self.doesGhostExist(pacmanPosition, 'West', 1)
-        self.isClosestGhost1UnitSouth = self.doesGhostExist(pacmanPosition, 'South', 1)
-        self.isClosestGhost1UnitEast = self.doesGhostExist(pacmanPosition, 'East', 1)
+        self.ghostWithin2UnitNorth = self.doesGhostExist(pacmanPosition, 'North', 1) or self.doesGhostExist(pacmanPosition, 'North', 2)
+        self.ghostWithin2UnitWest = self.doesGhostExist(pacmanPosition, 'West', 1) or self.doesGhostExist(pacmanPosition, 'West', 2)
+        self.ghostWithin2UnitSouth = self.doesGhostExist(pacmanPosition, 'South', 1) or self.doesGhostExist(pacmanPosition, 'South', 2)
+        self.ghostWithin2UnitEast = self.doesGhostExist(pacmanPosition, 'East', 1) or self.doesGhostExist(pacmanPosition, 'East', 2)
+        self.ghostNorthWest = (x - 1, y + 1) in self.rawGameState.getGhostPositions()
+        self.ghostSouthWest = (x - 1, y - 1) in self.rawGameState.getGhostPositions()
+        self.ghostSouthEast = (x + 1, y - 1) in self.rawGameState.getGhostPositions()
+        self.ghostNorthEast = (x + 1, y + 1) in self.rawGameState.getGhostPositions()
 
 
     def findClosestGhosts(self):
@@ -61,10 +72,14 @@ class FeatureBasedGameState(object):
             raise Exception("You have provided an invalid direction: ", direction)
 
     def __key(self):
-        return (self.isClosestGhost1UnitNorth,
-                self.isClosestGhost1UnitEast,
-                self.isClosestGhost1UnitSouth,
-                self.isClosestGhost1UnitWest
+        return (self.ghostWithin2UnitNorth,
+                self.ghostWithin2UnitWest,
+                self.ghostWithin2UnitSouth,
+                self.ghostWithin2UnitEast,
+                self.ghostNorthWest,
+                self.ghostSouthWest,
+                self.ghostSouthEast,
+                self.ghostNorthEast
                 )
 
     def __hash__(self):
@@ -77,10 +92,14 @@ class FeatureBasedGameState(object):
 
     def __repr__(self):
         return str({
-            "isClosestGhost1UnitNorth": self.isClosestGhost1UnitNorth,
-            "isClosestGhost1UnitWest": self.isClosestGhost1UnitWest,
-            "isClosestGhost1UnitSouth": self.isClosestGhost1UnitSouth,
-            "isClosestGhost1UnitEast": self.isClosestGhost1UnitEast
+            "ghostWithin2UnitNorth": self.ghostWithin2UnitNorth,
+            "ghostWithin2UnitWest": self.ghostWithin2UnitWest,
+            "ghostWithin2UnitSouth": self.ghostWithin2UnitSouth,
+            "ghostWithin2UnitEast": self.ghostWithin2UnitEast,
+            "ghostNorthWest": self.ghostNorthWest,
+            "ghostSouthWest": self.ghostSouthWest,
+            "ghostSouthEast": self.ghostSouthEast,
+            "ghostNorthEast": self.ghostNorthEast
         })
 
 
