@@ -1,0 +1,7 @@
+Commands for running MCTSAgent:
+python pacman.py -p MCTSAgent
+
+Alright, it seems the simplest agent (with no computations whatsoever) can run only around 17 games per/sec
+There goes my dream of running 1000 games per sec. But it was too ambitious anyways.
+Real-time MCTS is out of the picture now.
+

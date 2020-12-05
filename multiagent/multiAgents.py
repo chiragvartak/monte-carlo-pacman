@@ -363,7 +363,10 @@ class MCTSAgent(Agent):
     pass
 
     def registerInitialState(self, state):
-        print state
+        pass
+        # print "state\n", state
+        # print "type(state)\n", type(state)
+        # print "state.__class__.__name__\n", state.__class__.__name__
 
     def getAction(self, state):
         return random.choice(state.getLegalActions())
