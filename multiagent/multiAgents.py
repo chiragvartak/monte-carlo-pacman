@@ -15,6 +15,9 @@
 from util import manhattanDistance
 from game import Directions
 import random, util
+from model import commonModel
+from featureBasedGameState import FeatureBasedGameState
+from math import sqrt, log
 
 from game import Agent
 
@@ -369,4 +372,41 @@ class MCTSAgent(Agent):
         # print "state.__class__.__name__\n", state.__class__.__name__
 
     def getAction(self, state):
-        return random.choice(state.getLegalActions())
+        # type: (GameState) -> str
+        # return random.choice(state.getLegalActions())
+        # if random.randint(0,10000) % 100 == 0:
+        #     print 1, random.randint(0, 1000)
+        fbgs = FeatureBasedGameState(state)
+        # if random.randint(0,10000) % 100 == 0:
+        #     print 2, random.randint(0, 1000)
+        uctValues = self.getUCTValues(fbgs, commonModel)
+        # if random.randint(0,10000) % 100 == 0:
+        #     print 3, random.randint(0, 1000)
+        # print "uctValues", uctValues
+        actionToReturn = max(uctValues)[1]
+        print actionToReturn
+        return actionToReturn
+
+    def getUCTValues(self, fbgs, model):
+        # type: (FeatureBasedGameState, Model) -> List[(float, str)]
+        w = {}
+        n = {}
+        N = 0
+        c = sqrt(2)
+        legalActions = fbgs.rawGameState.getLegalActions()
+        for action in legalActions:
+            if (fbgs, action) not in model.data:
+                n[action] = 0
+                w[action] = 0
+            else:
+                n[action] = model.data[(fbgs, action)].nSimulations
+                w[action] = model.data[(fbgs, action)].nWins
+            N += n[action]
+        uctValues = []
+        for action in legalActions:
+            uctValue = self.getUCTValue(w[action], n[action], N, c)
+            uctValues.append((uctValue, action))
+        return uctValues
+
+    def getUCTValue(self, w, n, N, c):
+        return w/(n+1.0) + c*sqrt(log(N+1.0)/(n+1.0))

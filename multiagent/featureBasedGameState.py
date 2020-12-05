@@ -1,7 +1,7 @@
-from model import Model
-from pacman import GameState
+# from model import Model
+# from pacman import GameState
 from util import euclidean_distance
-from typing import List
+# from typing import List
 
 class FeatureBasedGameState(object):
     def __init__(self, gameState):

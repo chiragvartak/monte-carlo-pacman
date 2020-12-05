@@ -47,7 +47,7 @@ from util import nearestPoint
 from util import manhattanDistance
 import util, layout
 import sys, types, time, random, os
-from model import Model
+from model import commonModel
 from featureBasedGameState import FeatureBasedGameState
 
 ###################################################
@@ -634,8 +634,6 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     rules = ClassicGameRules(timeout)
     games = []
 
-    model = Model()
-
     for i in range( numGames ):
         beQuiet = i < numTraining
         if beQuiet:
@@ -648,7 +646,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
             rules.quiet = False
         game = rules.newGame( layout, pacman, ghosts, gameDisplay, beQuiet, catchExceptions)
         game.run()
-        updateModel(model, game)
+        updateModel(commonModel, game)
         if not beQuiet: games.append(game)
 
         if record:
@@ -670,7 +668,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
 
     modelFile = "model.txt"
     print "Writing model to file", modelFile
-    model.writeModelToFile(modelFile)
+    commonModel.writeModelToFile(modelFile)
     print "done"
 
     return games
