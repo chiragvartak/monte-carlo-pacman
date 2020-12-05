@@ -388,7 +388,12 @@ class MCTSAgent(MultiAgentSearchAgent):
         # print "Choosing real action"
         valueActionPairs = []  # Value can be whatever you formulate it to be
         for action in fbgs.rawGameState.getLegalActions():
-            value = model.data[(fbgs, action)].nSimulations  # MCTS thing for now - select action with max simulations
+            value = None
+            if (fbgs, action) not in model.data:
+                value = 0
+            else:
+                value = model.data[(fbgs, action)].nSimulations  # MCTS thing for now - select action with max simulations
+                # value = model.data[(fbgs, action)].avgReward
             valueActionPairs.append((value, action))
         return max(valueActionPairs)[1]
 
@@ -397,8 +402,8 @@ class MCTSAgent(MultiAgentSearchAgent):
         w = {}
         n = {}
         N = 0
-        # c = sqrt(2)
-        c = 1
+        c = sqrt(2)
+        # c = 1
         legalActions = fbgs.rawGameState.getLegalActions()
         for action in legalActions:
             if (fbgs, action) not in model.data:

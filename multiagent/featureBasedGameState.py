@@ -19,6 +19,10 @@ class FeatureBasedGameState(object):
         self.ghostSouthWest = None
         self.ghostSouthEast = None
         self.ghostNorthEast = None
+        self.foodNorth = None
+        self.foodSouth = None
+        self.foodEast = None
+        self.foodWest = None
 
         # Caching some stuff for faster calculations - don't change this please!
         self.closestGhosts = None
@@ -36,6 +40,10 @@ class FeatureBasedGameState(object):
         self.ghostSouthWest = (x - 1, y - 1) in self.rawGameState.getGhostPositions()
         self.ghostSouthEast = (x + 1, y - 1) in self.rawGameState.getGhostPositions()
         self.ghostNorthEast = (x + 1, y + 1) in self.rawGameState.getGhostPositions()
+        self.foodNorth = self.rawGameState.hasFood(x, y + 1)
+        self.foodSouth = self.rawGameState.hasFood(x, y - 1)
+        self.foodEast = self.rawGameState.hasFood(x + 1, y)
+        self.foodWest = self.rawGameState.hasFood(x - 1, y)
 
 
     def findClosestGhosts(self):
@@ -79,7 +87,11 @@ class FeatureBasedGameState(object):
                 self.ghostNorthWest,
                 self.ghostSouthWest,
                 self.ghostSouthEast,
-                self.ghostNorthEast
+                self.ghostNorthEast,
+                self.foodNorth,
+                self.foodSouth,
+                self.foodEast,
+                self.foodWest
                 )
 
     def __hash__(self):
@@ -99,7 +111,11 @@ class FeatureBasedGameState(object):
             "ghostNorthWest": self.ghostNorthWest,
             "ghostSouthWest": self.ghostSouthWest,
             "ghostSouthEast": self.ghostSouthEast,
-            "ghostNorthEast": self.ghostNorthEast
+            "ghostNorthEast": self.ghostNorthEast,
+            "foodNorth": self.foodNorth,
+            "foodSouth": self.foodSouth,
+            "foodEast": self.foodEast,
+            "foodWest": self.foodWest
         })
 
 
