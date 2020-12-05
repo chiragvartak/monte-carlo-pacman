@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
-class TwoPlayersAbstractGameState(ABC):
+class TwoPlayersAbstractGameState(object):
 
     @abstractmethod
     def game_result(self):
@@ -62,5 +62,5 @@ class TwoPlayersAbstractGameState(ABC):
         pass
 
 
-class AbstractGameAction(ABC):
+class AbstractGameAction(object):
     pass

@@ -3,7 +3,7 @@ import numpy as np
 
 from mctspy.tree.nodes import TwoPlayersGameMonteCarloTreeSearchNode
 from mctspy.tree.search import MonteCarloTreeSearch
-from mctspy.games.examples.tictactoe import TicTacToeGameState
+from tictactoe import TicTacToeGameState
 
 
 def test_if_initial_state_no_result():
@@ -56,3 +56,11 @@ def test_tic_tac_toe_best_action():
                                                   parent=None)
     mcts = MonteCarloTreeSearch(root)
     assert mcts.best_action(1000)
+
+if __name__ == "__main__":
+    test_if_initial_state_no_result()
+    test_if_1_wins_diagonal_case1()
+    test_if_1_wins_diagonal_case2()
+    test_if_0_wins_diagonal_case1()
+    test_if_0_wins_diagonal_case2()
+    test_tic_tac_toe_best_action()

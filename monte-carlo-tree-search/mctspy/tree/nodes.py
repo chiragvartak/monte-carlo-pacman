@@ -1,9 +1,9 @@
 import numpy as np
 from collections import defaultdict
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
-class MonteCarloTreeSearchNode(ABC):
+class MonteCarloTreeSearchNode(object):
 
     def __init__(self, state, parent=None):
         """
@@ -71,7 +71,7 @@ class MonteCarloTreeSearchNode(ABC):
 class TwoPlayersGameMonteCarloTreeSearchNode(MonteCarloTreeSearchNode):
 
     def __init__(self, state, parent=None):
-        super().__init__(state, parent)
+        super(TwoPlayersGameMonteCarloTreeSearchNode, self).__init__(state, parent)
         self._number_of_visits = 0.
         self._results = defaultdict(int)
         self._untried_actions = None
