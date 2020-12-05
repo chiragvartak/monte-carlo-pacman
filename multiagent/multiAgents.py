@@ -384,7 +384,7 @@ class MCTSAgent(Agent):
         #     print 3, random.randint(0, 1000)
         # print "uctValues", uctValues
         actionToReturn = max(uctValues)[1]
-        print actionToReturn
+        # print actionToReturn
         return actionToReturn
 
     def getUCTValues(self, fbgs, model):
