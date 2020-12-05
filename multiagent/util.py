@@ -16,6 +16,7 @@ import sys
 import inspect
 import heapq, random
 import cStringIO
+from math import sqrt
 
 
 class FixedRandom:
@@ -651,3 +652,7 @@ def unmutePrint():
     sys.stdout = _ORIGINAL_STDOUT
     #sys.stderr = _ORIGINAL_STDERR
 
+def euclidean_distance(p1, p2):
+    x1, y1 = p1
+    x2, y2 = p2
+    return sqrt((x2-x1)**2 + (y2-y1)**2)

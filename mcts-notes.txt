@@ -5,3 +5,9 @@ Alright, it seems the simplest agent (with no computations whatsoever) can run o
 There goes my dream of running 1000 games per sec. But it was too ambitious anyways.
 Real-time MCTS is out of the picture now.
 
+[done] Migrate library MCTS from python 3 to 2
+It was a pain though
+
+Goal: survive
+[done] Create a feature-based game state from the GameState (Make it reusable)
+Write the classes required for library MCTS
