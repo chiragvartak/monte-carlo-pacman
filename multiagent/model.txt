@@ -1,0 +1,8 @@
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': False, 'isClosestGhost1UnitWest': False}, 'West'): ModelEntry(nWins=0, nSimulations=10, avgReward=-457.2)
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': False, 'isClosestGhost1UnitWest': False}, 'North'): ModelEntry(nWins=0, nSimulations=7, avgReward=-444.14285714285717)
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': False, 'isClosestGhost1UnitWest': False}, 'East'): ModelEntry(nWins=0, nSimulations=10, avgReward=-457.2)
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': True, 'isClosestGhost1UnitWest': False}, 'Stop'): ModelEntry(nWins=0, nSimulations=1, avgReward=-431.0)
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': False, 'isClosestGhost1UnitWest': False}, 'Stop'): ModelEntry(nWins=0, nSimulations=10, avgReward=-457.2)
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': False, 'isClosestGhost1UnitWest': True}, 'West'): ModelEntry(nWins=0, nSimulations=3, avgReward=-484.33333333333326)
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': True, 'isClosestGhost1UnitWest': False}, 'South'): ModelEntry(nWins=0, nSimulations=1, avgReward=-443.0)
+({'isClosestGhost1UnitSouth': False, 'isClosestGhost1UnitEast': False, 'isClosestGhost1UnitNorth': False, 'isClosestGhost1UnitWest': False}, 'South'): ModelEntry(nWins=0, nSimulations=7, avgReward=-444.14285714285717)

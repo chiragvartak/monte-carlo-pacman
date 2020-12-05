@@ -1,4 +1,4 @@
-from pacman import GameState
+# from pacman import GameState
 from util import euclidean_distance
 
 class FeatureBasedGameState(object):
@@ -31,7 +31,7 @@ class FeatureBasedGameState(object):
             return self.closestGhosts
         pacmanPosition = self.rawGameState.getPacmanPosition()
         ghostPositions = self.rawGameState.getGhostPositions()
-        minDistance = 0
+        minDistance = 999999999
         closestGhosts = []
         for ghostPosition in ghostPositions:
             ghostDistance = euclidean_distance(pacmanPosition, ghostPosition)
@@ -57,3 +57,26 @@ class FeatureBasedGameState(object):
             return (x+distance, y) in closestGhosts
         else:
             raise Exception("You have provided an invalid direction: ", direction)
+
+    def __key(self):
+        return (self.isClosestGhost1UnitNorth,
+                self.isClosestGhost1UnitEast,
+                self.isClosestGhost1UnitSouth,
+                self.isClosestGhost1UnitWest
+                )
+
+    def __hash__(self):
+        return hash(self.__key())
+
+    def __eq__(self, other):
+        if isinstance(other, FeatureBasedGameState):
+            return self.__key() == other.__key()
+        return NotImplemented
+
+    def __repr__(self):
+        return str({
+            "isClosestGhost1UnitNorth": self.isClosestGhost1UnitNorth,
+            "isClosestGhost1UnitWest": self.isClosestGhost1UnitWest,
+            "isClosestGhost1UnitSouth": self.isClosestGhost1UnitSouth,
+            "isClosestGhost1UnitEast": self.isClosestGhost1UnitEast
+        })

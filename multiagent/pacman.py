@@ -47,6 +47,8 @@ from util import nearestPoint
 from util import manhattanDistance
 import util, layout
 import sys, types, time, random, os
+from model import Model
+from featureBasedGameState import FeatureBasedGameState
 
 ###################################################
 # YOUR INTERFACE TO THE PACMAN WORLD: A GameState #
@@ -632,6 +634,8 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     rules = ClassicGameRules(timeout)
     games = []
 
+    model = Model()
+
     for i in range( numGames ):
         beQuiet = i < numTraining
         if beQuiet:
@@ -644,6 +648,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
             rules.quiet = False
         game = rules.newGame( layout, pacman, ghosts, gameDisplay, beQuiet, catchExceptions)
         game.run()
+        updateModel(model, game)
         if not beQuiet: games.append(game)
 
         if record:
@@ -663,7 +668,41 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
         print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
 
+    modelFile = "model.txt"
+    print "Writing model to file", modelFile
+    model.writeModelToFile(modelFile)
+    print "done"
+
     return games
+
+def updateModel(model, game):
+    # type: (Model, Game) -> None
+
+    pairFbgsActions = [(FeatureBasedGameState(gameState), move[1]) for move, gameState
+                      in zip(game.moveHistory, game.stateHistory) if move[0] == 0]
+    score = game.state.getScore()
+
+    updated = set()
+    for fbgs, action in pairFbgsActions:
+        # If it is already updated, don't update again
+        if (fbgs, action) in updated:
+            continue
+
+        existingNWins = 0
+        existingNSimulations = 0
+        existingAvgReward = 0.0
+        if (fbgs, action) in model.data:
+            existingNWins = model.data[(fbgs, action)].nWins
+            existingNSimulations = model.data[(fbgs, action)].nSimulations
+            existingAvgReward = model.data[(fbgs, action)].avgReward
+        newNWins = (existingNWins+1) if game.state.isWin() else existingNWins
+        newNSimulations = existingNSimulations + 1
+        n = existingNSimulations
+        newAvgReward = n/(n+1.0) * existingAvgReward + score/(n+1.0)
+
+        model.updateEntry(fbgs, action, newNWins, newNSimulations, newAvgReward)
+        updated.add((fbgs, action))
+
 
 if __name__ == '__main__':
     """

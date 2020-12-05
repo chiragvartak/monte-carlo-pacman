@@ -11,3 +11,18 @@ It was a pain though
 Goal: survive
 [done] Create a feature-based game state from the GameState (Make it reusable)
 Write the classes required for library MCTS
+
+I think MCTS cannot handle randomness (multiple possible children states resulting from the same state-action pair)
+This might be a potential problem
+Okay, using the library is becoming too damn complicated coz too many hidden details.
+It's better to write MCTS from the ground-up
+Okay, not giving up on this yet .. thinking
+
+For the ghost (player 2) states in the MC search tree, we should not select the next state in the "selection" stage
+based on the exploration-exploitation formula. We should select it uniformly at random. This is because we do not have
+a control over the player 2's moves.
+So, the "normal" version of the MCTS is not going to work. We need a "Minimax" kinda version of MCTS. (Using the term
+"minimax" loosely here)
+
+Okay I think I have it. The "Q" will be replaced by an expectation of Q.
+This is like an "expectimax" version of Monte-Carlo. I expect it to work well for random ghosts.
