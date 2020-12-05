@@ -26,3 +26,6 @@ Turn off graphics:
 
 Zoom:
 -z 2
+
+Commands for running MCTSAgent:
+python pacman.py -p MCTSAgent

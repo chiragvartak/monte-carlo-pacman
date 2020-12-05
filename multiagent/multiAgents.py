@@ -359,3 +359,11 @@ def betterEvaluationFunction(currentGameState):
 # Abbreviation
 better = betterEvaluationFunction
 
+class MCTSAgent(Agent):
+    pass
+
+    def registerInitialState(self, state):
+        print state
+
+    def getAction(self, state):
+        return random.choice(state.getLegalActions())
