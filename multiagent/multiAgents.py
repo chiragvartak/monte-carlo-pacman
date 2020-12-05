@@ -362,30 +362,34 @@ def betterEvaluationFunction(currentGameState):
 # Abbreviation
 better = betterEvaluationFunction
 
-class MCTSAgent(Agent):
-    pass
+class MCTSAgent(MultiAgentSearchAgent):
+    def __init__(self, evalFn = 'betterEvaluationFunction', numTraining = '0', isReal = False):
+        self.currentGame = 0
+        self.numberOfTrainingGames = int(numTraining)
 
     def registerInitialState(self, state):
-        pass
+        self.currentGame += 1
         # print "state\n", state
         # print "type(state)\n", type(state)
         # print "state.__class__.__name__\n", state.__class__.__name__
 
     def getAction(self, state):
         # type: (GameState) -> str
-        # return random.choice(state.getLegalActions())
-        # if random.randint(0,10000) % 100 == 0:
-        #     print 1, random.randint(0, 1000)
         fbgs = FeatureBasedGameState(state)
-        # if random.randint(0,10000) % 100 == 0:
-        #     print 2, random.randint(0, 1000)
-        uctValues = self.getUCTValues(fbgs, commonModel)
-        # if random.randint(0,10000) % 100 == 0:
-        #     print 3, random.randint(0, 1000)
-        # print "uctValues", uctValues
-        actionToReturn = max(uctValues)[1]
-        # print actionToReturn
-        return actionToReturn
+        if self.currentGame <= self.numberOfTrainingGames:
+            uctValues = self.getUCTValues(fbgs, commonModel)
+            # print "uctValues", uctValues
+            actionToReturn = max(uctValues)[1]
+            return actionToReturn
+        else:  # This is real game - do the best move!
+            return self.realActionToTake(fbgs, commonModel)
+
+    def realActionToTake(self, fbgs, model):
+        valueActionPairs = []  # Value can be whatever you formulate it to be
+        for action in fbgs.rawGameState.getLegalActions():
+            value = model.data[(fbgs, action)].nSimulations  # MCTS thing for now - select action with max simulations
+            valueActionPairs.append((value, action))
+        return max(valueActionPairs)[1]
 
     def getUCTValues(self, fbgs, model):
         # type: (FeatureBasedGameState, Model) -> List[(float, str)]
