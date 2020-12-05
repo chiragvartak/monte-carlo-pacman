@@ -26,3 +26,5 @@ So, the "normal" version of the MCTS is not going to work. We need a "Minimax" k
 
 Okay I think I have it. The "Q" will be replaced by an expectation of Q.
 This is like an "expectimax" version of Monte-Carlo. I expect it to work well for random ghosts.
+
+For survival, I think training on smaller layout will be better

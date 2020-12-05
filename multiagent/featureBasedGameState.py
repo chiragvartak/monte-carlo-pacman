@@ -1,5 +1,7 @@
-# from pacman import GameState
+from model import Model
+from pacman import GameState
 from util import euclidean_distance
+from typing import List
 
 class FeatureBasedGameState(object):
     def __init__(self, gameState):
@@ -80,3 +82,58 @@ class FeatureBasedGameState(object):
             "isClosestGhost1UnitSouth": self.isClosestGhost1UnitSouth,
             "isClosestGhost1UnitEast": self.isClosestGhost1UnitEast
         })
+
+
+# Some utility functions that I require, I am putting here
+def _getSuccessorsAtDepth(gameState, agentIndex, depth):
+    # type: (GameState, int, int) -> List[GameState]
+    immediateSuccessors = [gameState.generateSuccessor(agentIndex, action) for action
+                           in gameState.getLegalActions(agentIndex)]
+    if depth == 1:
+        return immediateSuccessors
+    nAgents = gameState.getNumAgents()
+    successors = []
+    for successor in immediateSuccessors:
+        successors += _getSuccessorsAtDepth(successor, (agentIndex+1)%nAgents, depth-1)
+    return successors
+
+
+def getActionSuccessorPairs(gameState):
+    # type: (GameState) -> List[(str, GameState)]
+    nAgents = gameState.getNumAgents()
+    legalActions = gameState.getLegalPacmanActions()
+    actionSuccessorPairs = []
+    for action in legalActions:
+        nextGameState = gameState.generatePacmanSuccessor(action)
+        actionSuccessorPairs.append([(action, successor) for successor
+                                     in _getSuccessorsAtDepth(nextGameState, 1, nAgents-1)])
+    print "There are", len(actionSuccessorPairs), "actionSuccessorPairs"
+    return actionSuccessorPairs
+
+def isFullyExplored(gameState, model):
+    # type: (GameState, Model) -> (bool, str)
+    actionSuccessorPairs = getActionSuccessorPairs(gameState)
+    actionVsNUnvisited = {}
+    actionVsNTotal = {}
+    for action, successor in actionSuccessorPairs:
+        fbgs = FeatureBasedGameState(gameState)
+        if (fbgs, action) not in model:
+            if action not in actionVsNUnvisited:
+                actionVsNUnvisited[action] = 1
+            else:
+                actionVsNUnvisited[action] += 1
+        if action not in actionVsNTotal:
+            actionVsNTotal[action] = 1
+        else:
+            actionVsNTotal[action] += 1
+    if len(actionVsNUnvisited) == 0:
+        return (True, None)
+    bestAction = None
+    highestProbabilityOfVisitingUnvisitedState = 0.0
+    for action, nUnvisited in actionVsNUnvisited.items():
+        probabilityOfVisitingUnvisitedState = actionVsNUnvisited[action] / actionVsNTotal[action]
+        if probabilityOfVisitingUnvisitedState > highestProbabilityOfVisitingUnvisitedState:
+            highestProbabilityOfVisitingUnvisitedState = probabilityOfVisitingUnvisitedState
+            bestAction = action
+    return (False, bestAction)
+
