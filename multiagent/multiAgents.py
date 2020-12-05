@@ -385,6 +385,7 @@ class MCTSAgent(MultiAgentSearchAgent):
             return self.realActionToTake(fbgs, commonModel)
 
     def realActionToTake(self, fbgs, model):
+        # print "Choosing real action"
         valueActionPairs = []  # Value can be whatever you formulate it to be
         for action in fbgs.rawGameState.getLegalActions():
             value = model.data[(fbgs, action)].nSimulations  # MCTS thing for now - select action with max simulations
