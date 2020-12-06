@@ -402,8 +402,8 @@ class MCTSAgent(MultiAgentSearchAgent):
         w = {}
         n = {}
         N = 0
-        c = sqrt(2)
-        # c = 1
+        # c = sqrt(2)
+        c = 1
         legalActions = fbgs.rawGameState.getLegalActions()
         for action in legalActions:
             if (fbgs, action) not in model.data:
@@ -411,7 +411,9 @@ class MCTSAgent(MultiAgentSearchAgent):
                 w[action] = 0
             else:
                 n[action] = model.data[(fbgs, action)].nSimulations
-                w[action] = model.data[(fbgs, action)].nWins
+                # w[action] = model.data[(fbgs, action)].nWins
+                # Give the agent *some* "wins" for a higher score - hopefully this will fix the zero wins case
+                w[action] = self.getWValue(model.data[(fbgs, action)].avgReward)
             N += n[action]
         uctValues = []
         for action in legalActions:
@@ -421,3 +423,9 @@ class MCTSAgent(MultiAgentSearchAgent):
 
     def getUCTValue(self, w, n, N, c):
         return w/(n+1.0) + c*sqrt(log(N+1.0)/(n+1.0))
+
+    def getWValue(self, score):
+        wValue = max(0, score+600)  # Scores less than -600 are effectively 0
+        wValue = wValue / 10
+        return wValue
+

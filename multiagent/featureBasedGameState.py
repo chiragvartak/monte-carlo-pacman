@@ -2,6 +2,8 @@
 # from pacman import GameState
 from util import euclidean_distance
 # from typing import List
+import searchAgents
+import search
 
 class FeatureBasedGameState(object):
     def __init__(self, gameState):
@@ -19,10 +21,11 @@ class FeatureBasedGameState(object):
         self.ghostSouthWest = None
         self.ghostSouthEast = None
         self.ghostNorthEast = None
-        self.foodNorth = None
-        self.foodSouth = None
-        self.foodEast = None
-        self.foodWest = None
+        # self.foodNorth = None
+        # self.foodSouth = None
+        # self.foodEast = None
+        # self.foodWest = None
+        self.moveToClosestFood = None
 
         # Caching some stuff for faster calculations - don't change this please!
         self.closestGhosts = None
@@ -40,10 +43,11 @@ class FeatureBasedGameState(object):
         self.ghostSouthWest = (x - 1, y - 1) in self.rawGameState.getGhostPositions()
         self.ghostSouthEast = (x + 1, y - 1) in self.rawGameState.getGhostPositions()
         self.ghostNorthEast = (x + 1, y + 1) in self.rawGameState.getGhostPositions()
-        self.foodNorth = self.rawGameState.hasFood(x, y + 1)
-        self.foodSouth = self.rawGameState.hasFood(x, y - 1)
-        self.foodEast = self.rawGameState.hasFood(x + 1, y)
-        self.foodWest = self.rawGameState.hasFood(x - 1, y)
+        # self.foodNorth = self.rawGameState.hasFood(x, y + 1)
+        # self.foodSouth = self.rawGameState.hasFood(x, y - 1)
+        # self.foodEast = self.rawGameState.hasFood(x + 1, y)
+        # self.foodWest = self.rawGameState.hasFood(x - 1, y)
+        self.moveToClosestFood = self.getMoveToClosestFood()
 
 
     def findClosestGhosts(self):
@@ -88,10 +92,11 @@ class FeatureBasedGameState(object):
                 self.ghostSouthWest,
                 self.ghostSouthEast,
                 self.ghostNorthEast,
-                self.foodNorth,
-                self.foodSouth,
-                self.foodEast,
-                self.foodWest
+                # self.foodNorth,
+                # self.foodSouth,
+                # self.foodEast,
+                # self.foodWest
+                self.moveToClosestFood
                 )
 
     def __hash__(self):
@@ -112,12 +117,18 @@ class FeatureBasedGameState(object):
             "ghostSouthWest": self.ghostSouthWest,
             "ghostSouthEast": self.ghostSouthEast,
             "ghostNorthEast": self.ghostNorthEast,
-            "foodNorth": self.foodNorth,
-            "foodSouth": self.foodSouth,
-            "foodEast": self.foodEast,
-            "foodWest": self.foodWest
+            # "foodNorth": self.foodNorth,
+            # "foodSouth": self.foodSouth,
+            # "foodEast": self.foodEast,
+            # "foodWest": self.foodWest
+            "moveToClosestFood": self.moveToClosestFood
         })
 
+    def getMoveToClosestFood(self):
+        problem = searchAgents.AnyFoodSearchProblem(self.rawGameState)
+        # sequenceOfActions = search.aStarSearch(problem, heuristic=searchAgents.util.manhattanDistance)
+        sequenceOfActions = search.aStarSearch(problem)
+        return sequenceOfActions[0]
 
 # Some utility functions that I require, I am putting here
 def _getSuccessorsAtDepth(gameState, agentIndex, depth):
