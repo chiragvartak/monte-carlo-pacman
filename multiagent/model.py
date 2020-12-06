@@ -7,14 +7,8 @@ class Model(object):
     def __init__(self):
         self.data = {}
 
-    def getPseudoWins(self, avgReward):
-            wValue = max(0, avgReward + 600)  # Scores less than -600 are effectively 0
-            wValue = wValue / 100
-            return wValue
-
-    def updateEntry(self, fbgs, actionTaken, nWins, nSimulations, avgReward):
-        # type: (FeatureBasedGameState, str, int, int, float) -> None
-        pseudoWins = self.getPseudoWins(avgReward)
+    def updateEntry(self, fbgs, actionTaken, nWins, pseudoWins, nSimulations, avgReward):
+        # type: (FeatureBasedGameState, str, int, float, int, float) -> None
         self.data[(fbgs, actionTaken)] = ModelEntry(nWins=nWins, pseudoWins=pseudoWins,
                                                     nSimulations=nSimulations, avgReward=avgReward)
 

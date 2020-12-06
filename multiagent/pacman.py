@@ -689,17 +689,25 @@ def updateModel(model, game):
         existingNWins = 0
         existingNSimulations = 0
         existingAvgReward = 0.0
+        existingPseudoWins = 0.0
         if (fbgs, action) in model.data:
             existingNWins = model.data[(fbgs, action)].nWins
             existingNSimulations = model.data[(fbgs, action)].nSimulations
             existingAvgReward = model.data[(fbgs, action)].avgReward
+            existingPseudoWins = model.data[(fbgs, action)].pseudoWins
         newNWins = (existingNWins+1) if game.state.isWin() else existingNWins
         newNSimulations = existingNSimulations + 1
         n = existingNSimulations
         newAvgReward = n/(n+1.0) * existingAvgReward + score/(n+1.0)
+        newPseudoWins = getPseudoWins(score) + existingPseudoWins
 
-        model.updateEntry(fbgs, action, newNWins, newNSimulations, newAvgReward)
+        model.updateEntry(fbgs, action, newNWins, newPseudoWins, newNSimulations, newAvgReward)
         updated.add((fbgs, action))
+
+def getPseudoWins(avgReward):
+        wValue = max(0, avgReward + 600)  # Scores less than -600 are effectively 0
+        wValue = wValue / 100
+        return wValue
 
 
 if __name__ == '__main__':

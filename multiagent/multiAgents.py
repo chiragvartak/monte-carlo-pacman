@@ -377,6 +377,10 @@ class MCTSAgent(MultiAgentSearchAgent):
         # type: (GameState) -> str
         fbgs = FeatureBasedGameState(state)
         if self.currentGame <= self.numberOfTrainingGames:
+            # return random.choice(state.getLegalPacmanActions()) # Temporary - delete this
+            # Guide the pacman to win, with some probability
+            if random.randint(0, 100) < 20 and not fbgs.ghostWithin1UnitOfClosestFoodDirectionPoint:
+                return fbgs.moveToClosestFood
             uctValues = self.getUCTValues(fbgs, commonModel)
             # print "uctValues", uctValues
             actionToReturn = max(uctValues)[1]
@@ -403,7 +407,7 @@ class MCTSAgent(MultiAgentSearchAgent):
         n = {}
         N = 0
         c = sqrt(2)
-        # c = 1
+        # c = 0.5
         legalActions = fbgs.rawGameState.getLegalActions()
         for action in legalActions:
             if (fbgs, action) not in model.data:
@@ -412,8 +416,8 @@ class MCTSAgent(MultiAgentSearchAgent):
             else:
                 n[action] = model.data[(fbgs, action)].nSimulations
                 w[action] = model.data[(fbgs, action)].nWins
+                # + model.data[(fbgs, action)].pseudoWins
                 # Give the agent *some* "wins" for a higher score - hopefully this will fix the zero wins case
-                # w[action] = model.data[(fbgs, action)].pseudoWins
             N += n[action]
         uctValues = []
         for action in legalActions:
