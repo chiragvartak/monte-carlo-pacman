@@ -379,7 +379,7 @@ class MCTSAgent(MultiAgentSearchAgent):
         if self.currentGame <= self.numberOfTrainingGames:
             # return random.choice(state.getLegalPacmanActions()) # Temporary - delete this
             # Guide the pacman to win, with some probability
-            if random.randint(0, 100) < 20 and not fbgs.ghostWithin1UnitOfClosestFoodDirectionPoint:
+            if random.randint(0, 100) < 10 and not fbgs.ghostWithin1UnitOfClosestFoodDirectionPoint:
                 return fbgs.moveToClosestFood
             uctValues = self.getUCTValues(fbgs, commonModel)
             # print "uctValues", uctValues
