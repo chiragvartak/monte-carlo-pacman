@@ -1,7 +1,6 @@
 from collections import namedtuple
 from featureBasedGameState import FeatureBasedGameState
 import pickle
-from time import strftime
 import constants
 
 ModelEntry = namedtuple('ModelEntry', "nWins nSimulations avgReward pseudoWins")
@@ -25,7 +24,6 @@ class Model(object):
         filename = outputModelFilePath
         with open(filename, 'wb') as f:
             pickle.dump(self.data, f)
-
 
 
 def getModel(filename):
