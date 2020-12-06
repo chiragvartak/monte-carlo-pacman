@@ -193,6 +193,13 @@ class FeatureBasedGameState(object):
         self.sequenceOfMovesToClosestGhost = sequenceOfActions
         return sequenceOfActions[0]
 
+    def __getstate__(self):
+        return (self.moveToClosestFood, self.ghostWithin1UnitOfClosestFoodDirectionPoint)
+
+    def __setstate__(self, state):
+        self.moveToClosestFood = state[0]
+        self.ghostWithin1UnitOfClosestFoodDirectionPoint = state[1]
+
 # Some utility functions that I require, I am putting here
 def _getSuccessorsAtDepth(gameState, agentIndex, depth):
     # type: (GameState, int, int) -> List[GameState]
