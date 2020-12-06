@@ -413,7 +413,7 @@ class MCTSAgent(MultiAgentSearchAgent):
                 n[action] = model.data[(fbgs, action)].nSimulations
                 # w[action] = model.data[(fbgs, action)].nWins
                 # Give the agent *some* "wins" for a higher score - hopefully this will fix the zero wins case
-                w[action] = self.getWValue(model.data[(fbgs, action)].avgReward)
+                w[action] = model.data[(fbgs, action)].pseudoWins
             N += n[action]
         uctValues = []
         for action in legalActions:
@@ -423,9 +423,3 @@ class MCTSAgent(MultiAgentSearchAgent):
 
     def getUCTValue(self, w, n, N, c):
         return w/(n+1.0) + c*sqrt(log(N+1.0)/(n+1.0))
-
-    def getWValue(self, score):
-        wValue = max(0, score+600)  # Scores less than -600 are effectively 0
-        wValue = wValue / 10
-        return wValue
-
