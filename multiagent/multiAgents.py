@@ -402,8 +402,8 @@ class MCTSAgent(MultiAgentSearchAgent):
         w = {}
         n = {}
         N = 0
-        # c = sqrt(2)
-        c = 1
+        c = sqrt(2)
+        # c = 1
         legalActions = fbgs.rawGameState.getLegalActions()
         for action in legalActions:
             if (fbgs, action) not in model.data:
