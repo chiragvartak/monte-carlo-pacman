@@ -49,6 +49,7 @@ import util, layout
 import sys, types, time, random, os
 from model import commonModel
 from featureBasedGameState import FeatureBasedGameState
+from constants import OUTPUT_MODEL_TEXT_FILE
 
 ###################################################
 # YOUR INTERFACE TO THE PACMAN WORLD: A GameState #
@@ -666,10 +667,9 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
         print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
 
-    modelFile = "model.txt"
-    print "Writing model to file", modelFile
-    commonModel.writeModelToFile(modelFile)
-    print "done"
+    print "Writing model to file", OUTPUT_MODEL_TEXT_FILE
+    commonModel.writeModelToFile(OUTPUT_MODEL_TEXT_FILE)
+    print ".. done"
 
     return games
 

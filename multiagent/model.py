@@ -1,8 +1,10 @@
 from collections import namedtuple
 from featureBasedGameState import FeatureBasedGameState
 import pickle
+from time import strftime
+import constants
 
-ModelEntry = namedtuple('ModelEntry', "nWins pseudoWins nSimulations avgReward")
+ModelEntry = namedtuple('ModelEntry', "nWins nSimulations avgReward pseudoWins")
 
 class Model(object):
     def __init__(self):
@@ -13,19 +15,20 @@ class Model(object):
         self.data[(fbgs, actionTaken)] = ModelEntry(nWins=nWins, pseudoWins=pseudoWins,
                                                     nSimulations=nSimulations, avgReward=avgReward)
 
-    def writeModelToFile(self, file="model.txt"):
+    def writeModelToFile(self, file):
         with open(file, 'w') as f:
             for key, value in self.data.items():
                 f.write(str(key) + ": " + str(value) + "\n")
-        # self.saveModel()
+        self.saveModel(constants.OUTPUT_MODEL)
 
-    def saveModel(self):
-        with open("model.pkl", 'wb') as f:
+    def saveModel(self, outputModelFilePath):
+        filename = outputModelFilePath
+        with open(filename, 'wb') as f:
             pickle.dump(self.data, f)
 
 
 
-def getModel(filename = "model.pkl"):
+def getModel(filename):
     with open(filename, 'rb') as f:
         data = pickle.load(f)
     model = Model()
@@ -33,5 +36,8 @@ def getModel(filename = "model.pkl"):
     return model
 
 
-# commonModel = Model()
-commonModel = getModel()
+commonModel = None
+if constants.MODEL_TO_USE is not None:
+    commonModel = getModel(constants.MODEL_TO_USE)
+else:
+    commonModel = Model()
