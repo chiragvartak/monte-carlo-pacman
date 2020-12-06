@@ -9,7 +9,7 @@ class Model(object):
 
     def getPseudoWins(self, avgReward):
             wValue = max(0, avgReward + 600)  # Scores less than -600 are effectively 0
-            wValue = wValue / 10
+            wValue = wValue / 100
             return wValue
 
     def updateEntry(self, fbgs, actionTaken, nWins, nSimulations, avgReward):

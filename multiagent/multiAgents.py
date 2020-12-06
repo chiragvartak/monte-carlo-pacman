@@ -411,9 +411,9 @@ class MCTSAgent(MultiAgentSearchAgent):
                 w[action] = 0
             else:
                 n[action] = model.data[(fbgs, action)].nSimulations
-                # w[action] = model.data[(fbgs, action)].nWins
+                w[action] = model.data[(fbgs, action)].nWins
                 # Give the agent *some* "wins" for a higher score - hopefully this will fix the zero wins case
-                w[action] = model.data[(fbgs, action)].pseudoWins
+                # w[action] = model.data[(fbgs, action)].pseudoWins
             N += n[action]
         uctValues = []
         for action in legalActions:
