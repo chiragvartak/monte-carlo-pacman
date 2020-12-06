@@ -33,7 +33,8 @@ def getModel(filename):
     model.data = data
     return model
 
-
+# This global Model is used to store the statistics of all the simulations
+# Note that if you are using an existing model (loaded from the .pkl file) the stats will be combined
 commonModel = None
 if constants.MODEL_TO_USE is not None:
     commonModel = getModel(constants.MODEL_TO_USE)

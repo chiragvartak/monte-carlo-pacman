@@ -15,9 +15,10 @@
 from util import manhattanDistance
 from game import Directions
 import random, util
-from model import commonModel
+from model import commonModel, Model
 from featureBasedGameState import FeatureBasedGameState
 from math import sqrt, log
+from pacman import GameState
 
 from game import Agent
 
@@ -366,37 +367,46 @@ class MCTSAgent(MultiAgentSearchAgent):
     def __init__(self, evalFn = 'betterEvaluationFunction', numTraining = '0', isReal = False):
         self.currentGame = 0
         self.numberOfTrainingGames = int(numTraining)
+        # Some configurable parameters go here - try changing these to tune your results
+
+        # This is the probability with which we will guide the pacman to make a good move during every state.
+        # I have introduced this because, in some layouts, the pacman never wins during simulations, and hence, can
+        # never find good moves it can exploit.
+        # Think of this as an additional "exploitation factor". Kocsis does its own exploitation too.
+        # This parameter is, of course, not used during real games.
+        self.guidance = 0.3
+
+        # The exploitation-exploration factor used by Kocsis - higher value = higher exploration
+        self.c = sqrt(2)
+
+    def getUCTValue(self, w, n, N, c):
+        return w/(n+1.0) + c*sqrt(log(N+1.0)/(n+1.0))
 
     def registerInitialState(self, state):
         self.currentGame += 1
-        # print "state\n", state
-        # print "type(state)\n", type(state)
-        # print "state.__class__.__name__\n", state.__class__.__name__
 
     def getAction(self, state):
         # type: (GameState) -> str
         fbgs = FeatureBasedGameState(state)
         if self.currentGame <= self.numberOfTrainingGames:
-            # return random.choice(state.getLegalPacmanActions()) # Temporary - delete this
             # Guide the pacman to win, with some probability
-            if random.randint(0, 100) < 30 and not fbgs.ghostWithin1UnitOfClosestFoodDirectionPoint:
+            if random.random() < self.guidance and not fbgs.ghostWithin1UnitOfClosestFoodDirectionPoint:
                 return fbgs.moveToClosestFood
             uctValues = self.getUCTValues(fbgs, commonModel)
-            # print "uctValues", uctValues
             actionToReturn = max(uctValues)[1]
             return actionToReturn
-        else:  # This is real game - do the best move!
+        else:  # This is real game - make the best move!
             return self.realActionToTake(fbgs, commonModel)
 
     def realActionToTake(self, fbgs, model):
-        # print "Choosing real action"
         valueActionPairs = []  # Value can be whatever you formulate it to be
+                               # The action with the max value will be returned
         for action in fbgs.rawGameState.getLegalActions():
             value = None
             if (fbgs, action) not in model.data:
                 value = 0
             else:
-                value = model.data[(fbgs, action)].nSimulations  # MCTS thing for now - select action with max simulations
+                value = model.data[(fbgs, action)].nSimulations  # select the action with max simulations
                 # value = model.data[(fbgs, action)].avgReward
             valueActionPairs.append((value, action))
         return max(valueActionPairs)[1]
@@ -406,8 +416,6 @@ class MCTSAgent(MultiAgentSearchAgent):
         w = {}
         n = {}
         N = 0
-        c = sqrt(2)
-        # c = 0.5
         legalActions = fbgs.rawGameState.getLegalActions()
         for action in legalActions:
             if (fbgs, action) not in model.data:
@@ -415,15 +423,12 @@ class MCTSAgent(MultiAgentSearchAgent):
                 w[action] = 0
             else:
                 n[action] = model.data[(fbgs, action)].nSimulations
-                w[action] = model.data[(fbgs, action)].nWins
+                w[action] = model.data[(fbgs, action)].nWins \
                 # + model.data[(fbgs, action)].pseudoWins
-                # Give the agent *some* "wins" for a higher score - hopefully this will fix the zero wins case
+                # Give the agent *some* ^ "wins" for a higher score - hopefully this will fix the zero wins case
             N += n[action]
         uctValues = []
         for action in legalActions:
-            uctValue = self.getUCTValue(w[action], n[action], N, c)
+            uctValue = self.getUCTValue(w[action], n[action], N, self.c)
             uctValues.append((uctValue, action))
         return uctValues
-
-    def getUCTValue(self, w, n, N, c):
-        return w/(n+1.0) + c*sqrt(log(N+1.0)/(n+1.0))
