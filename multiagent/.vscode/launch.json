@@ -1,0 +1,106 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "bigClassicShuffle",
+            "type": "python",
+            "request": "launch",
+            "program": "pacman.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-p",
+                "MCTSAgent",
+                "-l",
+                "bigClassic-bigClassicShuffle0-bigClassicShuffle1-bigClassicShuffle2-bigClassicShuffle3-bigClassicShuffle4-bigClassicShuffle5-bigClassicShuffle6-bigClassicShuffle7-bigClassicShuffle8-bigClassicShuffle9",
+                "-n",
+                "100",
+                "-q"
+            ]
+        },
+        {
+            "name": "MediumClassicShuffle",
+            "type": "python",
+            "request": "launch",
+            "program": "pacman.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-p",
+                "MCTSAgent",
+                "-l",
+                "mediumClassic-mediumClassicShuffle0-mediumClassicShuffle1-mediumClassicShuffle2-mediumClassicShuffle3-mediumClassicShuffle4-mediumClassicShuffle5-mediumClassicShuffle6-mediumClassicShuffle7-mediumClassicShuffle8-mediumClassicShuffle9",
+                "-n",
+                "100",
+                "-q"
+            ]
+        },
+        {
+            "name": "Stress test",
+            "type": "python",
+            "request": "launch",
+            "program": "pacman.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-p",
+                "MCTSAgent",
+                "-l",
+                "mediumClassic-mediumClassicF-mediumClassicFT-mediumClassicFTF-mediumClassicT-mediumClassicTF-mediumClassicTFT-mediumClassicTFTF-smallClassic-smallClassicF-smallClassicFT-smallClassicFTF-smallClassicT-smallClassicTF-smallClassicTFT-smallClassicTFTF",
+                "-n",
+                "20"
+            ]
+        },
+        {
+            "name": "ShuffleRows",
+            "type": "python",
+            "request": "launch",
+            "program": "layoutTransformer.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-ShR",
+                "mediumClassic",
+                "10"
+            ]
+        },
+        {
+            "name": "StringOfNames",
+            "type": "python",
+            "request": "launch",
+            "program": "layoutTransformer.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-S",
+                "mediumClassic",
+                "smallClassic"
+            ]
+        },
+        {
+            "name": "Transpose",
+            "type": "python",
+            "request": "launch",
+            "program": "layoutTransformer.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-T",
+                "mediumClassic"
+            ]
+        },
+        {
+            "name": "mediumClassicT 10",
+            "type": "python",
+            "request": "launch",
+            "program": "pacman.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-p",
+                "MCTSAgent",
+                "-l",
+                "mediumClassicT",
+                "-n",
+                "10",
+                "-q"
+            ]
+        }
+    ]
+}

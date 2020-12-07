@@ -536,8 +536,11 @@ def readCommand( argv ):
     if options.fixRandomSeed: random.seed('cs188')
 
     # Choose a layout
-    args['layout'] = layout.getLayout( options.layout )
-    if args['layout'] == None: raise Exception("The layout " + options.layout + " cannot be found")
+    layouts = []
+    for layoutName in options.layout.split("-"):
+        layouts.append(layout.getLayout( layoutName ))
+    args['layoutList'] = layouts
+    if args['layoutList'] == None: raise Exception("The layouts " + options.layout + " cannot be found")
 
     # Choose a Pacman agent
     noKeyboard = options.gameToReplay == None and (options.textGraphics or options.quietGraphics)
@@ -628,14 +631,17 @@ def replayGame( layout, actions, display ):
 
     display.finish()
 
-def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0, catchExceptions=False, timeout=30 ):
+def runGames( layoutList, pacman, ghosts, display, numGames, record, numTraining = 0, catchExceptions=False, timeout=30 ):
     import __main__
     __main__.__dict__['_display'] = display
 
     rules = ClassicGameRules(timeout)
     games = []
 
+    numberOfLayouts = len(layoutList)
     for i in range( numGames ):
+        layout = layoutList[i%numberOfLayouts]
+
         beQuiet = i < numTraining
         if beQuiet:
                 # Suppress output and graphics
@@ -667,9 +673,9 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
         print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
 
-    print "Writing model to file", OUTPUT_MODEL_TEXT_FILE
-    commonModel.writeModelToFile(OUTPUT_MODEL_TEXT_FILE)
-    print ".. done"
+    # print "Writing model to file", OUTPUT_MODEL_TEXT_FILE
+    # commonModel.writeModelToFile(OUTPUT_MODEL_TEXT_FILE)
+    # print ".. done"
 
     return games
 
