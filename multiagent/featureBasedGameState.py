@@ -11,6 +11,9 @@ class FeatureBasedGameState(object):
     def __init__(self, gameState):
         # type: (GameState) -> None
 
+        if gameState == None:  # Just create an empty FBGS object that you could fill up by yourself later
+            return
+
         # Storing the GameState; it might be needed
         self.rawGameState = gameState
 
