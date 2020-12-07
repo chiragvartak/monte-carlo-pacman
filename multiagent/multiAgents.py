@@ -377,7 +377,7 @@ class MCTSAgent(MultiAgentSearchAgent):
         self.guidance = 0.3
 
         # The exploitation-exploration factor used by Kocsis - higher value = higher exploration
-        self.c = sqrt(2)
+        self.c = sqrt(2) + 0.5
 
     def getUCTValue(self, w, n, N, c):
         return w/(n+1.0) + c*sqrt(log(N+1.0)/(n+1.0))

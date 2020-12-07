@@ -8,7 +8,7 @@ there. This is indicated by the comments in there.
 ### Run training games and generate a model
 (Prefer running training games on the `smallStandard`. It is made for that)
 ```bash
-python pacman.py --numTraining 10000 -p MCTSAgent -l smallStandard -n 10000
+python pacman.py --numTraining 10000 -p MCTSAgent -l smallStandard -n 10010
 ```
 The model is generated in the `models/` directory. It will mostly be named `model-latest.pkl`
 

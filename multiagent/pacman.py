@@ -673,9 +673,9 @@ def runGames( layoutList, pacman, ghosts, display, numGames, record, numTraining
         print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
         print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
 
-    # print "Writing model to file", OUTPUT_MODEL_TEXT_FILE
-    # commonModel.writeModelToFile(OUTPUT_MODEL_TEXT_FILE)
-    # print ".. done"
+    print "Writing model to file", OUTPUT_MODEL_TEXT_FILE
+    commonModel.writeModelToFile(OUTPUT_MODEL_TEXT_FILE)
+    print ".. done"
 
     return games
 
