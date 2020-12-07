@@ -7,15 +7,15 @@ time python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l testClassic -a dep
 time python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l testClassic -a depth=3,evalFn=better -q -n 10
 time python -u pacman.py -c --timeout 30 -p MCTSAgent -l testClassic -q -n 10
 
-time python -u pacman.py -c --timeout 30 -p MinimaxAgent -l smallClassic -a depth=3,evalFn=better -q -n 10
-time python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l smallClassic -a depth=3,evalFn=better -q -n 10
-time python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l smallClassic -a depth=3,evalFn=better -q -n 10
-time python -u pacman.py -c --timeout 30 -p MCTSAgent -l smallClassic -q -n 10
+time python -u pacman.py -c --timeout 30 -p MinimaxAgent -l small -a depth=3,evalFn=better -q -n 10
+time python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l small -a depth=3,evalFn=better -q -n 10
+time python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l small -a depth=3,evalFn=better -q -n 10
+time python -u pacman.py -c --timeout 30 -p MCTSAgent -l small -q -n 10
 
-time python -u pacman.py -c --timeout 30 -p MinimaxAgent -l mediumClassic -a depth=3,evalFn=better -q -n 10
-time python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l mediumClassic -a depth=3,evalFn=better -q -n 10
-time python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l mediumClassic -a depth=3,evalFn=better -q -n 10
-time python -u pacman.py -c --timeout 30 -p MCTSAgent -l mediumClassic -q -n 10
+time python -u pacman.py -c --timeout 30 -p MinimaxAgent -l medium -a depth=3,evalFn=better -q -n 10
+time python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l medium -a depth=3,evalFn=better -q -n 10
+time python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l medium -a depth=3,evalFn=better -q -n 10
+time python -u pacman.py -c --timeout 30 -p MCTSAgent -l medium -q -n 10
 
 # No point - they all time out
 time python -u pacman.py -c --timeout 30 -p MinimaxAgent -l bigClassic -a depth=2 -q -n 1
