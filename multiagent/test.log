@@ -1,0 +1,279 @@
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l testClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 560
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 558
+Average Score: 562.4
+Scores:        562.0, 564.0, 564.0, 564.0, 564.0, 560.0, 562.0, 562.0, 564.0, 558.0
+Win Rate:      10/10 (1.00)
+Record:        Win, Win, Win, Win, Win, Win, Win, Win, Win, Win
+
+real	0m9.502s
+user	0m9.388s
+sys	0m0.112s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l testClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Average Score: 563.4
+Scores:        564.0, 562.0, 564.0, 564.0, 562.0, 562.0, 564.0, 564.0, 564.0, 564.0
+Win Rate:      10/10 (1.00)
+Record:        Win, Win, Win, Win, Win, Win, Win, Win, Win, Win
+
+real	0m4.029s
+user	0m4.001s
+sys	0m0.028s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l testClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 560
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Average Score: 562.6
+Scores:        562.0, 564.0, 562.0, 564.0, 560.0, 564.0, 562.0, 562.0, 562.0, 564.0
+Win Rate:      10/10 (1.00)
+Record:        Win, Win, Win, Win, Win, Win, Win, Win, Win, Win
+
+real	0m9.089s
+user	0m9.009s
+sys	0m0.080s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l testClassic -q -n 10
+Pacman emerges victorious! Score: 558
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 558
+Pacman emerges victorious! Score: 552
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 554
+Pacman emerges victorious! Score: 562
+Pacman emerges victorious! Score: 564
+Pacman emerges victorious! Score: 564
+Average Score: 560.0
+Scores:        558.0, 564.0, 562.0, 558.0, 552.0, 562.0, 554.0, 562.0, 564.0, 564.0
+Win Rate:      10/10 (1.00)
+Record:        Win, Win, Win, Win, Win, Win, Win, Win, Win, Win
+
+real	0m0.199s
+user	0m0.191s
+sys	0m0.008s
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l smallClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 976
+Pacman emerges victorious! Score: 1358
+Pacman emerges victorious! Score: 1136
+Pacman emerges victorious! Score: 1162
+Pacman emerges victorious! Score: 973
+Pacman emerges victorious! Score: 1553
+Pacman emerges victorious! Score: 1106
+Pacman emerges victorious! Score: 1374
+Pacman emerges victorious! Score: 936
+Pacman emerges victorious! Score: 960
+Average Score: 1153.4
+Scores:        976.0, 1358.0, 1136.0, 1162.0, 973.0, 1553.0, 1106.0, 1374.0, 936.0, 960.0
+Win Rate:      10/10 (1.00)
+Record:        Win, Win, Win, Win, Win, Win, Win, Win, Win, Win
+
+real	1m30.271s
+user	1m29.452s
+sys	0m0.816s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l smallClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 1348
+Pacman emerges victorious! Score: 1549
+Pacman emerges victorious! Score: 1363
+Pacman emerges victorious! Score: 1155
+Pacman emerges victorious! Score: 1551
+Pacman died! Score: -330
+Pacman emerges victorious! Score: 1546
+Pacman died! Score: 237
+Pacman emerges victorious! Score: 1363
+Pacman emerges victorious! Score: 1339
+Average Score: 1112.1
+Scores:        1348.0, 1549.0, 1363.0, 1155.0, 1551.0, -330.0, 1546.0, 237.0, 1363.0, 1339.0
+Win Rate:      8/10 (0.80)
+Record:        Win, Win, Win, Win, Win, Loss, Win, Loss, Win, Win
+
+real	0m39.223s
+user	0m38.809s
+sys	0m0.412s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l smallClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 987
+Pacman emerges victorious! Score: 1228
+Pacman emerges victorious! Score: 979
+Pacman emerges victorious! Score: 1170
+Pacman emerges victorious! Score: 1533
+Pacman emerges victorious! Score: 970
+Pacman emerges victorious! Score: 959
+Pacman emerges victorious! Score: 970
+Pacman emerges victorious! Score: 978
+Pacman emerges victorious! Score: 942
+Average Score: 1071.6
+Scores:        987.0, 1228.0, 979.0, 1170.0, 1533.0, 970.0, 959.0, 970.0, 978.0, 942.0
+Win Rate:      10/10 (1.00)
+Record:        Win, Win, Win, Win, Win, Win, Win, Win, Win, Win
+
+real	1m44.090s
+user	1m43.188s
+sys	0m0.900s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l smallClassic -q -n 10
+Pacman emerges victorious! Score: 979
+Pacman emerges victorious! Score: 979
+Pacman emerges victorious! Score: 937
+Pacman emerges victorious! Score: 985
+Pacman died! Score: -39
+Pacman emerges victorious! Score: 987
+Pacman died! Score: -237
+Pacman emerges victorious! Score: 958
+Pacman emerges victorious! Score: 977
+Pacman emerges victorious! Score: 977
+Average Score: 750.3
+Scores:        979.0, 979.0, 937.0, 985.0, -39.0, 987.0, -237.0, 958.0, 977.0, 977.0
+Win Rate:      8/10 (0.80)
+Record:        Win, Win, Win, Win, Loss, Win, Loss, Win, Win, Win
+
+real	0m1.250s
+user	0m1.242s
+sys	0m0.008s
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l mediumClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 1269
+Pacman died! Score: -58
+Pacman emerges victorious! Score: 1908
+Pacman emerges victorious! Score: 2046
+Pacman emerges victorious! Score: 1733
+Pacman emerges victorious! Score: 1928
+Pacman emerges victorious! Score: 1710
+Pacman died! Score: 382
+Pacman emerges victorious! Score: 1722
+Pacman emerges victorious! Score: 1898
+Average Score: 1453.8
+Scores:        1269.0, -58.0, 1908.0, 2046.0, 1733.0, 1928.0, 1710.0, 382.0, 1722.0, 1898.0
+Win Rate:      8/10 (0.80)
+Record:        Win, Loss, Win, Win, Win, Win, Win, Loss, Win, Win
+
+real	2m1.333s
+user	2m0.549s
+sys	0m0.780s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l mediumClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 1323
+Pacman emerges victorious! Score: 1478
+Pacman emerges victorious! Score: 1711
+Pacman emerges victorious! Score: 1924
+Pacman emerges victorious! Score: 1914
+Pacman died! Score: 244
+Pacman emerges victorious! Score: 1721
+Pacman emerges victorious! Score: 1542
+Pacman emerges victorious! Score: 1663
+Pacman emerges victorious! Score: 1720
+Average Score: 1524.0
+Scores:        1323.0, 1478.0, 1711.0, 1924.0, 1914.0, 244.0, 1721.0, 1542.0, 1663.0, 1720.0
+Win Rate:      9/10 (0.90)
+Record:        Win, Win, Win, Win, Win, Loss, Win, Win, Win, Win
+
+real	1m17.861s
+user	1m17.178s
+sys	0m0.632s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l mediumClassic -a depth=3,evalFn=better -q -n 10
+Pacman emerges victorious! Score: 1903
+Pacman emerges victorious! Score: 1715
+Pacman emerges victorious! Score: 2105
+Pacman emerges victorious! Score: 2113
+Pacman emerges victorious! Score: 1704
+Pacman emerges victorious! Score: 1642
+Pacman emerges victorious! Score: 1538
+Pacman emerges victorious! Score: 1900
+Pacman emerges victorious! Score: 1726
+Pacman emerges victorious! Score: 1485
+Average Score: 1783.1
+Scores:        1903.0, 1715.0, 2105.0, 2113.0, 1704.0, 1642.0, 1538.0, 1900.0, 1726.0, 1485.0
+Win Rate:      10/10 (1.00)
+Record:        Win, Win, Win, Win, Win, Win, Win, Win, Win, Win
+
+real	2m4.673s
+user	2m3.454s
+sys	0m0.952s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l mediumClassic -q -n 10
+Pacman died! Score: -269
+Pacman emerges victorious! Score: 1348
+Pacman emerges victorious! Score: 1747
+Pacman emerges victorious! Score: 1347
+Pacman emerges victorious! Score: 1545
+Pacman died! Score: -16
+Pacman emerges victorious! Score: 1540
+Pacman emerges victorious! Score: 1748
+Pacman emerges victorious! Score: 1347
+Pacman emerges victorious! Score: 1549
+Average Score: 1188.6
+Scores:        -269.0, 1348.0, 1747.0, 1347.0, 1545.0, -16.0, 1540.0, 1748.0, 1347.0, 1549.0
+Win Rate:      8/10 (0.80)
+Record:        Loss, Win, Win, Win, Win, Loss, Win, Win, Win, Win
+
+real	0m2.037s
+user	0m2.016s
+sys	0m0.020s
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l bigClassic -a depth=2 -q -n 1
+Pacman died! Score: -395
+Average Score: -395.0
+Scores:        -395.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m0.151s
+user	0m0.147s
+sys	0m0.004s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l bigClassic -a depth=2 -q -n 1
+Agent 0 ran out of time! (time: 30.01)
+Pacman crashed
+Average Score: -1729.0
+Scores:        -1729.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m43.259s
+user	0m42.866s
+sys	0m0.388s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l bigClassic -a depth=2 -q -n 1
+Agent 0 ran out of time! (time: 30.03)
+Pacman crashed
+Average Score: -1746.0
+Scores:        -1746.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m43.152s
+user	0m42.855s
+sys	0m0.292s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l bigClassic -q -n 10
+Pacman died! Score: 847
+Pacman emerges victorious! Score: 2321
+Pacman died! Score: 1339
+Pacman died! Score: 931
+Pacman emerges victorious! Score: 2279
+Pacman emerges victorious! Score: 2342
+Pacman emerges victorious! Score: 2335
+Pacman emerges victorious! Score: 2302
+Pacman died! Score: 228
+Pacman emerges victorious! Score: 2326
+Average Score: 1725.0
+Scores:        847.0, 2321.0, 1339.0, 931.0, 2279.0, 2342.0, 2335.0, 2302.0, 228.0, 2326.0
+Win Rate:      6/10 (0.60)
+Record:        Loss, Win, Loss, Loss, Win, Win, Win, Win, Loss, Win
+
+real	0m14.544s
+user	0m14.487s
+sys	0m0.056s

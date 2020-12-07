@@ -1,0 +1,163 @@
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l testClassic -a depth=3 -q -n 1
+Pacman emerges victorious! Score: 518
+Average Score: 518.0
+Scores:        518.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m2.333s
+user	0m2.285s
+sys	0m0.049s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l testClassic -a depth=3 -q -n 1
+Pacman emerges victorious! Score: 556
+Average Score: 556.0
+Scores:        556.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m0.508s
+user	0m0.492s
+sys	0m0.016s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l testClassic -a depth=3 -q -n 1
+Pacman emerges victorious! Score: 516
+Average Score: 516.0
+Scores:        516.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m2.661s
+user	0m2.621s
+sys	0m0.040s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l testClassic -q -n 1
+Pacman emerges victorious! Score: 564
+Average Score: 564.0
+Scores:        564.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m0.036s
+user	0m0.032s
+sys	0m0.004s
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l smallClassic -a depth=3 -q -n 1
+Pacman died! Score: -368
+Average Score: -368.0
+Scores:        -368.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m11.329s
+user	0m11.154s
+sys	0m0.172s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l smallClassic -a depth=3 -q -n 1
+Pacman emerges victorious! Score: 1121
+Average Score: 1121.0
+Scores:        1121.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m13.278s
+user	0m13.074s
+sys	0m0.204s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l smallClassic -a depth=3 -q -n 1
+Pacman died! Score: 93
+Average Score: 93.0
+Scores:        93.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m7.680s
+user	0m7.579s
+sys	0m0.100s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l smallClassic -q -n 1
+Pacman emerges victorious! Score: 966
+Average Score: 966.0
+Scores:        966.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m0.157s
+user	0m0.144s
+sys	0m0.012s
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l mediumClassic -a depth=2 -q -n 1
+Pacman emerges victorious! Score: 339
+Average Score: 339.0
+Scores:        339.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m23.641s
+user	0m23.360s
+sys	0m0.280s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l mediumClassic -a depth=2 -q -n 1
+Pacman died! Score: 109
+Average Score: 109.0
+Scores:        109.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m3.223s
+user	0m3.187s
+sys	0m0.036s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l mediumClassic -a depth=2 -q -n 1
+Pacman died! Score: -1192
+Average Score: -1192.0
+Scores:        -1192.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m19.160s
+user	0m18.911s
+sys	0m0.248s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l mediumClassic -q -n 1
+Pacman emerges victorious! Score: 1321
+Average Score: 1321.0
+Scores:        1321.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m0.326s
+user	0m0.322s
+sys	0m0.004s
++ python -u pacman.py -c --timeout 30 -p MinimaxAgent -l bigClassic -a depth=2 -q -n 1
+Agent 0 ran out of time! (time: 30.01)
+Pacman crashed
+Average Score: -1198.0
+Scores:        -1198.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m39.776s
+user	0m39.396s
+sys	0m0.380s
++ python -u pacman.py -c --timeout 30 -p AlphaBetaAgent -l bigClassic -a depth=2 -q -n 1
+Agent 0 ran out of time! (time: 30.00)
+Pacman crashed
+Average Score: -1705.0
+Scores:        -1705.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m43.012s
+user	0m42.680s
+sys	0m0.332s
++ python -u pacman.py -c --timeout 30 -p ExpectimaxAgent -l bigClassic -a depth=2 -q -n 1
+Agent 0 ran out of time! (time: 30.01)
+Pacman crashed
+Average Score: -2445.0
+Scores:        -2445.0
+Win Rate:      0/1 (0.00)
+Record:        Loss
+
+real	0m47.214s
+user	0m46.675s
+sys	0m0.428s
++ python -u pacman.py -c --timeout 30 -p MCTSAgent -l bigClassic -q -n 1
+Pacman emerges victorious! Score: 2342
+Average Score: 2342.0
+Scores:        2342.0
+Win Rate:      1/1 (1.00)
+Record:        Win
+
+real	0m1.312s
+user	0m1.308s
+sys	0m0.004s
