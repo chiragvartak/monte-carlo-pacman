@@ -2,6 +2,7 @@
 
 # The binary pickle file that will be loaded and used
 # Make this None if you dont want to use an existing model
+# MODEL_TO_USE = None
 MODEL_TO_USE = "models/model.pkl"
 
 
