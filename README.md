@@ -1,5 +1,7 @@
 # Model-Based Monte Carlo Tree Search For Pacman
 
+A brief overview of navigating and using this repository has been recorded, and is available at https://www.youtube.com/watch?v=rvm8Kqri2sM
+
 ## Environment Details
 
 All our code has been tested with Python 2 (2.7.18 to be precise). We do not use any version specific libraries so any
