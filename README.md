@@ -1,21 +1,51 @@
-# Notes of the MCTS parts
+# Model-Based Monte Carlo Tree Search For Pacman
 
-First things first:
-1) Take a look at the `constants.py` file. You can choose to use an existing model, or not. Details are in `constants.py`
-2) If you add features to the `featureBasedGameState.py`, there are multiple places you will need to make changes in
-there. This is indicated by the comments in there.
+## Instructions
+0) You need to be present in the `multiagent/` directory to run all the commans below.
 
-### Run training games and generate a model
-(Prefer running training games on the `smallStandard`. It is made for that)
+1) (Optional) Train the Pacman agent by running the Monte-Carlo Tree Search simulations.  
+   You can skip this step. In that case, the trained model we have included will be used for playing the games.
+   Prefer running training games on the `smallStandard`. It is especially made for training.
 ```bash
-python pacman.py --numTraining 10000 -p MCTSAgent -l smallStandard -n 10010
+python pacman.py --numTraining 10000 -q -p MCTSAgent -l smallStandard -n 10000
 ```
-The model is generated in the `models/` directory. It will mostly be named `model-latest.pkl`
+The trained model will be saved to `models/model-latest.pkl`.  
+A robust model which has been well-trained has already been provided. It is named `models/perfect-model.pkl`.  
+If you do not make any changes to the `constants.py` config parameters. This model will be used as the base model, even
+for the training, and for playing your games after that.
 
-### Using a created model for future games
-Simple rename the file `model-latest.pkl` to `model.pkl` in the `models/` directory  
+
+2) Using a created model for playing games
 and then run your game:
 ```bash
-python pacman.py --numTraining 0 -p MCTSAgent -l bigClassic -n 10
+python pacman.py --numTraining 0 -q -p MCTSAgent -l trickyFoodsFar -n 100
 ```
-Let the `--numTraining` param be present. Set it to 0 if you want. Weird things happens if it isn't present.
+
+## File Description
+
+`multiagents.py` - contains the `MCTSAgent` which implements the Monte-Carlo Tree Search algorithm
+
+`featureBasedGameState.py` - feature-based representation of a game state
+
+`model.py` - storing, retrieving and using the generated model for playing games
+
+`search.py` - search algorthims from project 1 (A-Star search) are used to generate some features required for
+game state representation
+
+`searchAgents.py` - the search problems present here are used for some feature extractions
+
+`layoutTransformer.py` - used to generate random layouts for performance analysis and debugging
+
+## Layouts
+
+We have provided varied layouts for you to try and see how the `MCTSAgent` works:
+
+1) `testClassic`
+2) `smallClassic`
+3) `mediumClassic`
+4) `bigClassic`
+5) `trickyFoodsFar`
+6) `openClassic2`
+7) `franksClassic`
+8) `openClassic`
+9) `survival`
