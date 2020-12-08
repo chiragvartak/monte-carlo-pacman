@@ -48,4 +48,3 @@ We have provided varied layouts for you to try and see how the `MCTSAgent` works
 6) `openClassic2`
 7) `franksClassic`
 8) `openClassic`
-9) `survival`
