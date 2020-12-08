@@ -1,5 +1,10 @@
 # Model-Based Monte Carlo Tree Search For Pacman
 
+## Environment Details
+
+All our code has been tested with Python 2 (2.7.18 to be precise). We do not use any version specific libraries so any
+Python 2 (>=2.7) should be fine.
+
 ## Instructions
 0) You need to be present in the `multiagent/` directory to run all the commans below.
 
