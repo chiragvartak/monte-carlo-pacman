@@ -6,7 +6,7 @@ All our code has been tested with Python 2 (2.7.18 to be precise). We do not use
 Python 2 (>=2.7) should be fine.
 
 ## Instructions
-0) You need to be present in the `multiagent/` directory to run all the commans below.
+0) You need to be present in the `multiagent/` directory to run all the commands below.
 
 1) (Optional) Train the Pacman agent by running the Monte-Carlo Tree Search simulations.  
    You can skip this step. In that case, the trained model we have included will be used for playing the games.
