@@ -1,0 +1,13 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.inner {
+  max-width: 60%;
+}
+
+sup {
+    font-size: 80%;
+    vertical-align: super;
+}
