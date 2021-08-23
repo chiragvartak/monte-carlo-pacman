@@ -1,7 +1,7 @@
 # Model-Based Monte Carlo Tree Search for Pacman
 
 Authors: [@chiragvartak](https://github.com/chiragvartak), [@NeilFranks](https://github.com/NeilFranks), [@fmendoz7](https://github.com/fmendoz7)  
-GitHub repository: [monte-carlo-Pacman](https://github.com/chiragvartak/monte-carlo-Pacman)  
+GitHub repository: [monte-carlo-pacman](https://github.com/chiragvartak/monte-carlo-Pacman)  
 Video demonstration: [Monte Carlo Pacman](https://www.youtube.com/watch?v=rvm8Kqri2sM)
 
 ## Abstract
@@ -245,8 +245,6 @@ which has wide open space and one ghost, and a more
 complex layout `smallClassic` which has twists, turns, tight
 spaces, and two ghosts.
 
-testClassic and smallClassic side by side images
-
 It is clear from the results below
 that the model's performance continuously improved as it was
 subjected to further training, with an especially significant
@@ -289,8 +287,43 @@ model, then the games could be completed much more
 quickly and effectively than could be done using the real-time
 algorithms which we compared against.
 
-## Conclusions and Discussions
+## Demonstrations
 
+Here we show how the Pacman improves when trained on an incremental number of games. We choose the below layout `smallClassic` as it is not too trivial, and also is challenging enough for us to notice improvements.
+
+With only 1 training game, the agent does as bad as we might expect it to. The Pacman has figured out that it is beneficial to move, but he always moves left.
+
+<center><img src="images/training-1.gif" alt="Pacman playing a game with 1 training game"></center>
+
+With 10 training games, the Pacman has gained *some* understanding that it should avoid the ghosts, but does not do very well to gather all foods, and gets stuck.
+
+<center><img src="images/training-10.gif" alt="Pacman playing a game with 10 training game"></center>
+
+With 100 training games, the Pacman now knows that it has to gather all foods, but still does a poor job of avoiding the ghosts.
+
+<center><img src="images/training-100.gif" alt="Pacman playing a game with 100 training game"></center>
+
+With 1000 training games, the Pacman now does a significantly better job of avoiding the ghosts, but there is still a lot of room for improvement.
+
+<center><img src="images/training-1000.gif" alt="Pacman playing a game with 1000 training game"></center>
+
+With 10,000 training games the Pacman can now almost always avoid the ghosts, and actually manages to win.
+
+<center><img src="images/training-10000.gif" alt="Pacman playing a game with 10000 training game"></center>
+
+With 1,000,000 games, the Pacman now wins almost all games. Here is one such game:
+
+<center><img src="images/perfect-smallClassic.gif" alt="Pacman playing a game with 1 million training game"></center>
+
+The Pacman can also easily now win on much larger and complicated layouts too.
+
+<center><img src="images/perfect-mediumClassic.gif" alt="Pacman playing a game on mediumClassic"></center>
+
+How well the Pacman does in intensely complex and difficult layouts can be seen when we let him play on the `openClassic2` layout:
+
+ <center><img src="images/perfect-openClassic2.gif" alt="Pacman playing a game on mediumClassic"></center>
+
+## Conclusions and Discussions
 
 In summary, our research highlighted the utility of Monte
 Carlo Tree Search, its fundamental design tenets that enabled
