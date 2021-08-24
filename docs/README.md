@@ -255,7 +255,7 @@ model allowed our MCTS Agent to play `testClassic` and
 Running 100,000 training simulations took roughly 30
 minutes.
 
-<center><img width="50%" src="images/n5.png"></center>
+<center><img width="550px" src="images/n5.png"></center>
 
 Furthermore, an MCTS Agent with 100,000 training simulations
 drastically out-performed agents using Minimax, AlphaBeta, and Expectimax algorithms (all using depth=3) in terms
@@ -267,11 +267,11 @@ where Minimax, AlphaBeta, and Expectimax agents timed out
 after 30 seconds, the MCTS Agent was able to finish, and
 receive high scores.
 
-<center><img width="50%" src="images/score3.png"></center>
+<center><img width="550px" src="images/score3.png"></center>
 
-<center><img width="50%" src="images/time3.png"></center>
+<center><img width="550px" src="images/time3.png"></center>
 
-<center><img width="50%" src="images/win3.png"></center>
+<center><img width="550px" src="images/win3.png"></center>
 
 In the graphs shown above, no bar is presented if the agent timed
 out after 30 seconds on the layout. The `mediumClassic` and
