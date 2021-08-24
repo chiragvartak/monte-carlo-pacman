@@ -257,6 +257,8 @@ minutes.
 
 <center><img width="550px" src="images/n5.png"></center>
 
+<center>Fig. 3: Win percentage for two layouts against number of simulations</center>
+
 Furthermore, an MCTS Agent with 100,000 training simulations
 drastically out-performed agents using Minimax, AlphaBeta, and Expectimax algorithms (all using depth=3) in terms
 of average score, average time per game, and win percentage.
@@ -269,9 +271,15 @@ receive high scores.
 
 <center><img width="550px" src="images/score3.png"></center>
 
+<center>Fig. 4: Average score for progressively harder layouts</center>
+
 <center><img width="550px" src="images/time3.png"></center>
 
+<center>Fig. 5: Average game time for different layouts</center>
+
 <center><img width="550px" src="images/win3.png"></center>
+
+<center>Fig. 6: Win percentage for the layouts</center>
 
 In the graphs shown above, no bar is presented if the agent timed
 out after 30 seconds on the layout. The `mediumClassic` and
